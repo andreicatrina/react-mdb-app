@@ -4,7 +4,7 @@ header {
 
 .headerSection {
   margin: 0 auto;
-  width: 1400px;
+  max-width: 1400px;
 }
 
 .headerContainer {
@@ -16,8 +16,8 @@ header {
 }
 
 .logoPic {
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   background: var(--color-medium-nude);
   cursor: pointer;
 }
@@ -28,14 +28,30 @@ header {
 .headerMenu a {
   font-size: 18px;
   font-weight: 700;
-  padding: 0 18px;
+  padding: 0 12px;
   color: var(--color-black);
-  transition: 0.4s;
+
+  background: linear-gradient(var(--color-medium-pink) 0 0) 0 100% / var(--d, 0)
+      1px no-repeat,
+    linear-gradient(var(--color-medium-pink) 0 0) 100% calc(100% - 20px) /
+      var(--d, 0) 2px no-repeat;
+  transition: 0s 0.5s, background-size 0.5s;
 }
 
 .headerMenu a:hover {
-  color: var(--color-medium-pink);
-  border-bottom: 1px solid var(--color-medium-pink);
+  /* color: var(--color-medium-pink);
+  border-bottom: 1px solid var(--color-medium-pink); */
+  --d: 100%;
+  background-position: 0% calc(100% - 1px), 100% calc(100% - 1px);
+  transition: 0.3s, background-position 0.3s 0.3s;
+}
+
+.leftContainer {
+  display: flex;
+}
+
+.centerMenuDiv {
+  display: flex;
 }
 
 .rightContainer {
@@ -46,4 +62,84 @@ header {
   padding: 0 12px;
   color: var(--color-black);
   font-size: 18px;
+}
+
+.hamburgerMenu {
+  display: none;
+}
+
+.mobileMenu {
+  display: none;
+}
+
+.addFavorites svg {
+  color: var(--color-black);
+}
+
+.addFavorites svg:hover {
+  color: var(--color-medium-pink);
+}
+
+@media all and (max-width: 800px) {
+  .headerMenu a {
+    display: none;
+  }
+
+  .hamburgerMenu {
+    display: flex;
+  }
+
+  .addFavorites {
+    display: none;
+  }
+
+  .mobileMenu {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .mobileMenu a {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-black);
+    margin: 12px 0;
+    background: linear-gradient(var(--color-medium-pink) 0 0) 0 100% /
+        var(--d, 0) 2px no-repeat,
+      linear-gradient(var(--color-medium-pink) 0 0) 100% calc(100% - 16px) /
+        var(--d, 0) 2px no-repeat;
+    transition: 0s 0.5s, background-size 0.5s;
+  }
+
+  .mobileMenu a:hover {
+    --d: 100%;
+    background-position: 0% calc(100% - 1px), 100% calc(100% - 1px);
+    transition: 0.3s, background-position 0.3s 0.3s;
+  }
+
+  .leftContainer {
+    order: 2;
+  }
+
+  .rightContainer {
+    order: 1;
+  }
+
+  .centerMenuDiv {
+    order: 3;
+    padding: 0 12px;
+  }
+
+  header {
+    border: none;
+  }
+
+  .headerContainer {
+    border-bottom: 1px solid var(--color-light-gray);
+  }
+
+  .shopMobile {
+    display: flex;
+    align-items: center;
+  }
 }
