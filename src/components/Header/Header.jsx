@@ -4,7 +4,10 @@ import { HiSearch } from "react-icons/hi";
 import { RiShoppingBagLine } from "react-icons/ri";
 import { AiOutlineMenu } from "react-icons/ai";
 import { AiOutlineClose } from "react-icons/ai";
+import { ReactComponent as Logo } from "../../images/logoTransparent.svg";
 import { BsArrowRightShort } from "react-icons/bs";
+import logo from "../../images/Transparent2.png";
+
 import React from "react";
 import { useState } from "react";
 
@@ -25,7 +28,10 @@ const Header = () => {
         <div className={s.headerContainer}>
           <div className={s.leftContainer}>
             <div className={s.logoContainer}>
-              <div className={s.logoPic}>LOGO</div>
+              <div className={s.logoPic}>
+                <img src={logo} alt="" />
+              </div>
+              <h2>Magazinul de Bratari</h2>
             </div>
           </div>
           <div className={s.centerMenuDiv}>
@@ -43,10 +49,10 @@ const Header = () => {
             <a className={s.addFavorites} href="#">
               <FiHeart />
             </a>
-            <a href="#">
+            <a className={s.searchIcon} href="#">
               <HiSearch />
             </a>
-            <a href="#">
+            <a className={s.shopBasket} href="#">
               <RiShoppingBagLine />
             </a>
           </div>
