@@ -10,9 +10,11 @@ import logo from "../../images/Transparent2.png";
 
 import React from "react";
 import { useState } from "react";
+import { useEffect } from "react";
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
 
   function menuClick() {
     if (showMenu === false) {
@@ -22,15 +24,35 @@ const Header = () => {
     }
   }
 
+  function showSearchBar() {
+    if (showSearch === false) {
+      setShowSearch(true);
+    } else {
+      setShowSearch(false);
+    }
+  }
+
+  useEffect(() => {
+    if (showMenu === true) {
+      setShowSearch(false);
+    }
+  }, [showMenu]);
+
+  useEffect(() => {
+    if (showSearch === true) {
+      setShowMenu(false);
+    }
+  }, [showSearch]);
+
   return (
     <header>
       <section className={s.headerSection}>
         <div className={s.headerContainer}>
           <div className={s.leftContainer}>
             <div className={s.logoContainer}>
-              <div className={s.logoPic}>
+              <a href="/" className={s.logoPic}>
                 <img src={logo} alt="" />
-              </div>
+              </a>
               <h2>Magazinul de Bratari</h2>
             </div>
           </div>
@@ -49,7 +71,7 @@ const Header = () => {
             <a className={s.addFavorites} href="#">
               <FiHeart />
             </a>
-            <a className={s.searchIcon} href="#">
+            <a onClick={showSearchBar} className={s.searchIcon} href="#">
               <HiSearch />
             </a>
             <a className={s.shopBasket} href="#">
@@ -57,6 +79,7 @@ const Header = () => {
             </a>
           </div>
         </div>
+
         {showMenu === true ? (
           <div className={s.mobileMenu}>
             <a className={s.shopMobile} href="#">
@@ -68,6 +91,15 @@ const Header = () => {
           </div>
         ) : null}
       </section>
+      {showSearch === true ? (
+        <div className={s.searchContainer}>
+          <input
+            className={s.searchInput}
+            type="search"
+            placeholder="Ce anume cauti?"
+          />
+        </div>
+      ) : null}
     </header>
   );
 };

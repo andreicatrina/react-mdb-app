@@ -1,0 +1,30 @@
+.landingSection {
+  background-color: var(--color-light-nude);
+}
+
+.landingContainer {
+}
+
+.landingImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.landingText {
+}
+
+.landingText h1 {
+}
+
+.landingText h2 {
+}
+
+.landingText p {
+}
+
+.buttonShop {
+}
+
+.buttonShop:hover {
+}

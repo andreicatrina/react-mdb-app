@@ -8,11 +8,28 @@
   text-decoration: none;
 }
 
+body {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-family: "Nanum Gothic", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  font-family: "Nanum Myeongjo", serif;
+}
+
 :root {
   --color-white: #fff;
   --color-black: #000;
   --color-light-nude: #fcece0;
   --color-medium-nude: #f0d9d5;
-  --color-medium-pink: #f2bfbe;
+  --color-medium-pink: #fabdbd;
   --color-light-gray: #ccbdb8;
 }
