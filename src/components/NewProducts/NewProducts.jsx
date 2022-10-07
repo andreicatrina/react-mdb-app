@@ -56,17 +56,18 @@ const NewProducts = () => {
         <ProductContainer>
           <ProductContainer2 ref={divReference}>
             {productList.map((product, i) => {
+              console.log(product.rating)
               return (
-                <ProductCard>
+                <ProductCard key={i}>
                   <Link to={`/products/${product.id}`}>
                     <ProductDetails>
                       <ProductPic src={product.image} alt="" />
                       <RatingContainer>
-                        <AiFillStar />
-                        <AiFillStar />
-                        <AiFillStar />
-                        <AiOutlineStar />
-                        <AiOutlineStar />
+                        {product.rating >= 1 ? <AiFillStar /> : <AiOutlineStar />}
+                        {product.rating >= 2 ? <AiFillStar /> : <AiOutlineStar />}
+                        {product.rating >= 3 ? <AiFillStar /> : <AiOutlineStar />}
+                        {product.rating >= 4 ? <AiFillStar /> : <AiOutlineStar />}
+                        {product.rating >= 5 ? <AiFillStar /> : <AiOutlineStar />}
                       </RatingContainer>
                       <NamePriceContainer>
                         <Name>{product.name}</Name>

@@ -48,24 +48,13 @@ import {
   RightSliderButton,
   LeftSliderButton,
   ProductContainer2,
-  PostButton,
-  EmailContainer,
-  NameContainer,
-  UserDetailsContainer,
-  InputsContainer,
-  GiveStarsContainer,
-  ScoreLabel,
-  WriteReviewTitle,
   WriteAReview,
   ReviewContainer,
   GradeContainer,
   ReviewGrade,
   StarsContainer,
   NumberOfReviews,
-  CustomerReviewForm,
   ProductReviewSection,
-  PostButtonContainer,
-  GiveStars,
 } from "./components";
 
 import ProductPic1 from "../../images/ProductPic1.jpg";
@@ -83,6 +72,7 @@ import NewProducts from "../../components/NewProducts/NewProducts";
 import { productList } from "../../components/NewProducts/slider";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
+import { ProductPageReviewForm } from "./ProductPageReviewForm";
 
 const ProductPage = () => {
   const [isClicked, setIsClicked] = useState(false);
@@ -90,68 +80,6 @@ const ProductPage = () => {
   const [showDescription, setShowDescription] = useState(false);
   const [showTips, setShowTips] = useState(false);
   const [showReview, setShowReview] = useState(false);
-
-  const [starClicked1, setStarClicked1] = useState(false);
-  const [starClicked2, setStarClicked2] = useState(false);
-  const [starClicked3, setStarClicked3] = useState(false);
-  const [starClicked4, setStarClicked4] = useState(false);
-  const [starClicked5, setStarClicked5] = useState(false);
-
-  function ratingFunction1() {
-    if (starClicked1 === false) {
-      setStarClicked1(true);
-    } else {
-      setStarClicked1(false);
-      setStarClicked2(false);
-      setStarClicked3(false);
-      setStarClicked4(false);
-      setStarClicked5(false);
-    }
-  }
-  function ratingFunction2() {
-    if (starClicked2 === false) {
-      setStarClicked2(true);
-      setStarClicked1(true);
-    } else {
-      setStarClicked2(false);
-      setStarClicked3(false);
-      setStarClicked4(false);
-      setStarClicked5(false);
-    }
-  }
-  function ratingFunction3() {
-    if (starClicked3 === false) {
-      setStarClicked3(true);
-      setStarClicked2(true);
-      setStarClicked1(true);
-    } else {
-      setStarClicked3(false);
-      setStarClicked4(false);
-      setStarClicked5(false);
-    }
-  }
-  function ratingFunction4() {
-    if (starClicked4 === false) {
-      setStarClicked4(true);
-      setStarClicked3(true);
-      setStarClicked2(true);
-      setStarClicked1(true);
-    } else {
-      setStarClicked5(false);
-      setStarClicked4(false);
-    }
-  }
-  function ratingFunction5() {
-    if (starClicked5 === false) {
-      setStarClicked5(true);
-      setStarClicked4(true);
-      setStarClicked3(true);
-      setStarClicked2(true);
-      setStarClicked1(true);
-    } else {
-      setStarClicked5(false);
-    }
-  }
 
   function showCustomerReview() {
     if (showReview === false) {
@@ -227,11 +155,11 @@ const ProductPage = () => {
         </ProductImageContainer>
         <ProductDetailsContainer>
           <ProductRatingContainer>
-            <AiFillStar />
-            <AiFillStar />
-            <AiFillStar />
-            <AiFillStar />
-            <AiFillStar />
+            {product.rating >= 1 ? <AiFillStar /> : <AiOutlineStar />}
+            {product.rating >= 2 ? <AiFillStar /> : <AiOutlineStar />}
+            {product.rating >= 3 ? <AiFillStar /> : <AiOutlineStar />}
+            {product.rating >= 4 ? <AiFillStar /> : <AiOutlineStar />}
+            {product.rating >= 5 ? <AiFillStar /> : <AiOutlineStar />}
           </ProductRatingContainer>
           <ProductTitle>Nume Produs</ProductTitle>
           <ProductPrice>10 LEI</ProductPrice>
@@ -351,48 +279,7 @@ const ProductPage = () => {
             Spune-ti parerea
           </WriteAReview>
         </ReviewContainer>
-        {showReview === true ? (
-          <CustomerReviewForm>
-            <WriteReviewTitle>SCRIE UN REVIEW</WriteReviewTitle>
-            <ScoreLabel>RATING:</ScoreLabel>
-            <GiveStarsContainer>
-              <GiveStars onClick={ratingFunction1}>
-                {starClicked1 === true ? <AiFillStar /> : <AiOutlineStar />}
-              </GiveStars>
-              <GiveStars onClick={ratingFunction2}>
-                {starClicked2 === true ? <AiFillStar /> : <AiOutlineStar />}
-              </GiveStars>
-              <GiveStars onClick={ratingFunction3}>
-                {starClicked3 === true ? <AiFillStar /> : <AiOutlineStar />}
-              </GiveStars>
-              <GiveStars onClick={ratingFunction4}>
-                {starClicked4 === true ? <AiFillStar /> : <AiOutlineStar />}
-              </GiveStars>
-              <GiveStars onClick={ratingFunction5}>
-                {starClicked5 === true ? <AiFillStar /> : <AiOutlineStar />}
-              </GiveStars>
-            </GiveStarsContainer>
-            <InputsContainer>
-              <label>Titlu:</label>
-              <input type="text" />
-              <label>Review:</label>
-              <input type="text" />
-            </InputsContainer>
-            <UserDetailsContainer>
-              <NameContainer>
-                <label>Numele Tau:</label>
-                <input type="text" />
-              </NameContainer>
-              <EmailContainer>
-                <label>Email-ul Tau:</label>
-                <input type="mail" required />
-              </EmailContainer>
-            </UserDetailsContainer>
-            <PostButtonContainer>
-              <PostButton>POST</PostButton>
-            </PostButtonContainer>
-          </CustomerReviewForm>
-        ) : null}
+        {showReview === true ? <ProductPageReviewForm /> : null}
       </ProductReviewSection>
 
       <Footer />
