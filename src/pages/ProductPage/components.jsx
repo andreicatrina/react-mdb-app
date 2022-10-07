@@ -457,7 +457,12 @@ export const GiveStarsContainer = styled.div`
     width: 26px;
     height: 26px;
     margin: 2px;
+    cursor: pointer;
   }
+`;
+
+export const GiveStars = styled.button`
+  background-color: transparent;
 `;
 
 export const InputsContainer = styled.div`
