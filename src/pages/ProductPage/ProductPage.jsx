@@ -55,6 +55,16 @@ import {
   StarsContainer,
   NumberOfReviews,
   ProductReviewSection,
+  CommentSection,
+  FilterByRatingContainer,
+  FilterRatingDiv,
+  CommentContainer,
+  CommentNameDiv,
+  CommentRatingDiv,
+  CommentaryDiv,
+  CommentDate,
+  CommentInfoDiv,
+  FilterStarsDropDown,
 } from "./components";
 
 import ProductPic1 from "../../images/ProductPic1.jpg";
@@ -65,6 +75,7 @@ import { BsCartCheckFill } from "react-icons/bs";
 import { AiOutlineStar } from "react-icons/ai";
 import { BsArrowLeft } from "react-icons/bs";
 import { BsArrowRight } from "react-icons/bs";
+import { IoMdArrowDropdown } from "react-icons/io";
 
 import React from "react";
 import { useState } from "react";
@@ -80,6 +91,15 @@ const ProductPage = () => {
   const [showDescription, setShowDescription] = useState(false);
   const [showTips, setShowTips] = useState(false);
   const [showReview, setShowReview] = useState(false);
+  const [showFilterStars, setShowFilterStars] = useState(false);
+
+  function filterStars() {
+    if (showFilterStars === false) {
+      setShowFilterStars(true);
+    } else {
+      setShowFilterStars(false);
+    }
+  }
 
   function showCustomerReview() {
     if (showReview === false) {
@@ -136,6 +156,7 @@ const ProductPage = () => {
   const productIdAsNumber = parseInt(params.productId);
   const product = getProductById(productIdAsNumber);
   console.log(product);
+  console.log(product.reviews);
 
   return (
     <>
@@ -181,7 +202,7 @@ const ProductPage = () => {
             </QuantityContainer>
             <AddToCartButton onClick={cartButton}>
               {isClicked === true ? <BsCartCheckFill /> : <GiShoppingCart />}
-              {isClicked === true ? "ADAUGAT IN COS" : "ADAUGA IN COS"}
+              {isClicked === true ? "PRODUS ADAUGAT" : "ADAUGA IN COS"}
             </AddToCartButton>
           </AddToCartContainer>
           <InfoParagraph>
@@ -193,7 +214,7 @@ const ProductPage = () => {
               <DescriptionTitle onClick={openDescription}>
                 DESCRIERE
               </DescriptionTitle>
-              {showDescription === true ? (
+              {showDescription === false ? (
                 <Description>
                   Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde
                   voluptatibus cupiditate molestias mollitia vitae culpa totam
@@ -233,11 +254,31 @@ const ProductPage = () => {
                     <ProductDetails>
                       <ProductPic src={product.image} alt="" />
                       <RatingContainer>
-                        <AiFillStar />
-                        <AiFillStar />
-                        <AiFillStar />
-                        <AiOutlineStar />
-                        <AiOutlineStar />
+                        {product.rating >= 1 ? (
+                          <AiFillStar />
+                        ) : (
+                          <AiOutlineStar />
+                        )}
+                        {product.rating >= 2 ? (
+                          <AiFillStar />
+                        ) : (
+                          <AiOutlineStar />
+                        )}
+                        {product.rating >= 3 ? (
+                          <AiFillStar />
+                        ) : (
+                          <AiOutlineStar />
+                        )}
+                        {product.rating >= 4 ? (
+                          <AiFillStar />
+                        ) : (
+                          <AiOutlineStar />
+                        )}
+                        {product.rating >= 5 ? (
+                          <AiFillStar />
+                        ) : (
+                          <AiOutlineStar />
+                        )}
                       </RatingContainer>
                       <NamePriceContainer>
                         <Name>{product.name}</Name>
@@ -262,16 +303,17 @@ const ProductPage = () => {
       </ProductsSection>
 
       {/* /////////REVIEW SECTION/////// */}
+
       <ProductReviewSection>
         <ReviewContainer>
           <GradeContainer>
             <ReviewGrade>4.9</ReviewGrade>
             <StarsContainer>
-              <AiFillStar />
-              <AiFillStar />
-              <AiFillStar />
-              <AiFillStar />
-              <AiFillStar />
+              {product.rating >= 1 ? <AiFillStar /> : <AiOutlineStar />}
+              {product.rating >= 2 ? <AiFillStar /> : <AiOutlineStar />}
+              {product.rating >= 3 ? <AiFillStar /> : <AiOutlineStar />}
+              {product.rating >= 4 ? <AiFillStar /> : <AiOutlineStar />}
+              {product.rating >= 5 ? <AiFillStar /> : <AiOutlineStar />}
             </StarsContainer>
             <NumberOfReviews>2150 Reviews</NumberOfReviews>
           </GradeContainer>
@@ -282,6 +324,81 @@ const ProductPage = () => {
         {showReview === true ? <ProductPageReviewForm /> : null}
       </ProductReviewSection>
 
+      {/* /////////COMMENT SECTION/////// */}
+
+      <CommentSection>
+        <FilterByRatingContainer>
+          <FilterRatingDiv onClick={filterStars}>
+            <span>RATING</span>
+            <IoMdArrowDropdown />
+          </FilterRatingDiv>
+          {showFilterStars === true ? (
+            <FilterStarsDropDown>
+              <p>All</p>
+              <div>
+                <AiFillStar />
+                <AiFillStar />
+                <AiFillStar />
+                <AiFillStar />
+                <AiFillStar />
+              </div>
+              <div>
+                <AiFillStar />
+                <AiFillStar />
+                <AiFillStar />
+                <AiFillStar />
+                <AiOutlineStar />
+              </div>
+              <div>
+                <AiFillStar />
+                <AiFillStar />
+                <AiFillStar />
+                <AiOutlineStar />
+                <AiOutlineStar />
+              </div>
+              <div>
+                <AiFillStar />
+                <AiFillStar />
+                <AiOutlineStar />
+                <AiOutlineStar />
+                <AiOutlineStar />
+              </div>
+              <div>
+                <AiFillStar />
+                <AiOutlineStar />
+                <AiOutlineStar />
+                <AiOutlineStar />
+                <AiOutlineStar />
+              </div>
+            </FilterStarsDropDown>
+          ) : null}
+        </FilterByRatingContainer>
+        {product.reviews.map((review) => {
+          return (
+            <CommentContainer>
+              <CommentInfoDiv>
+                <CommentNameDiv>
+                  <p>{review.name[0].toUpperCase()}</p>
+                  <h3>{review.name}</h3>
+                </CommentNameDiv>
+                <CommentDate>{review.date}</CommentDate>
+              </CommentInfoDiv>
+
+              <CommentRatingDiv>
+                {review.rating >= 1 ? <AiFillStar /> : <AiOutlineStar />}
+                {review.rating >= 2 ? <AiFillStar /> : <AiOutlineStar />}
+                {review.rating >= 3 ? <AiFillStar /> : <AiOutlineStar />}
+                {review.rating >= 4 ? <AiFillStar /> : <AiOutlineStar />}
+                {review.rating >= 5 ? <AiFillStar /> : <AiOutlineStar />}
+              </CommentRatingDiv>
+              <CommentaryDiv>
+                <h3>{review.title}</h3>
+                <p>{review.text}</p>
+              </CommentaryDiv>
+            </CommentContainer>
+          );
+        })}
+      </CommentSection>
       <Footer />
     </>
   );

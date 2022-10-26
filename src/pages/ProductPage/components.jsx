@@ -10,6 +10,11 @@ export const ProductPageContainer = styled.div`
   margin-bottom: 50px;
   padding: 0 24px;
   gap: 24px;
+
+  @media (max-width: 1100px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 export const ProductImageContainer = styled.div`
@@ -19,6 +24,10 @@ export const ProductImageContainer = styled.div`
   width: 100%;
   max-width: 700px;
   /* background-color: yellow; */
+
+  @media (max-width: 1100px) {
+    /* max-width: 900px; */
+  }
 `;
 
 export const ImageContainer = styled.div`
@@ -52,6 +61,12 @@ export const ProductDetailsContainer = styled.div`
   width: 100%;
   max-width: 700px;
   /* background-color: green; */
+
+  @media (max-width: 1100px) {
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 export const ProductRatingContainer = styled.div`
@@ -61,18 +76,32 @@ export const ProductRatingContainer = styled.div`
     width: 20px;
     height: 20px;
   }
+
+  @media (max-width: 1100px) {
+    justify-content: center;
+  }
 `;
 
 export const ProductTitle = styled.h2`
   margin: 10px 0;
   font-size: 36px;
   font-weight: 400;
+
+  @media (max-width: 1100px) {
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 export const ProductPrice = styled.h3`
   margin: 10px 0 10px;
   font-size: 18px;
   font-weight: 700;
+
+  @media (max-width: 1100px) {
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 export const ProductParagraph = styled.p``;
@@ -80,11 +109,24 @@ export const ProductParagraph = styled.p``;
 export const SizeContainer = styled.div`
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 1100px) {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid var(--color-light-gray);
+    border-radius: 8px;
+    padding-left: 8px;
+    margin-bottom: 10px;
+  }
 `;
 
 export const SizeParagraph = styled.h3`
   margin: 20px 0 20px;
   font-size: 12px;
+
+  @media (max-width: 1100px) {
+  }
 `;
 
 export const SizeDiv = styled.div`
@@ -92,6 +134,10 @@ export const SizeDiv = styled.div`
 
   margin: 0px 0 20px 0px;
   /* border: 1px solid var(--color-light-gray); */
+
+  @media (max-width: 1100px) {
+    margin: 0;
+  }
 `;
 
 export const Size = styled.p`
@@ -104,8 +150,8 @@ export const Size = styled.p`
   transition: 0.5s;
 
   :hover {
-    background-color: var(--color-black);
-    color: var(--color-white);
+    background-color: #d9f1f4;
+    color: var(--color-black);
   }
 `;
 
@@ -162,6 +208,10 @@ export const AddToCartButton = styled.button`
     width: 20px;
     height: 20px;
   }
+
+  @media (max-width: 1100px) {
+    max-width: 100%;
+  }
 `;
 
 export const InfoParagraph = styled.p`
@@ -170,6 +220,10 @@ export const InfoParagraph = styled.p`
   gap: 8px;
   padding: 5px;
   margin: 10px 0 20px;
+
+  @media (max-width: 1100px) {
+    justify-content: center;
+  }
 `;
 
 export const ProductDescriptionContainer = styled.div`
@@ -183,6 +237,10 @@ export const ProductDescriptionContainer = styled.div`
   border-radius: 16px;
   gap: 20px;
   background-color: #d9f1f4;
+
+  @media (max-width: 1100px) {
+    max-width: 100%;
+  }
 `;
 
 export const DescriptionContainer = styled.div``;
@@ -390,11 +448,17 @@ export const ProductReviewSection = styled.div`
 export const ReviewContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
   margin-top: 50px;
   padding: 0 24px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 36px;
+  }
 `;
 
 export const GradeContainer = styled.div`
@@ -429,6 +493,10 @@ export const WriteAReview = styled.button`
   font-size: 12px;
   font-weight: 700;
   cursor: pointer;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
 `;
 
 export const CustomerReviewForm = styled.div`
@@ -529,4 +597,138 @@ export const PostButton = styled.button`
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
+`;
+
+{
+  /* /////////COMMENT SECTION/////// */
+}
+
+export const CommentSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+`;
+export const FilterByRatingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+`;
+export const FilterStarsDropDown = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+  max-width: 200px;
+  margin: 0 auto;
+  border: 1px solid var(--color-light-gray);
+  color: var(--color-medium-pink);
+  position: absolute;
+  top: 40px;
+
+  p {
+    :hover {
+      background-color: var(--color-light-nude);
+      cursor: pointer;
+    }
+  }
+
+  div {
+    display: flex;
+    justify-content: left;
+    cursor: pointer;
+
+    svg {
+      color: var(--color-medium-pink);
+    }
+
+    :hover {
+      background-color: var(--color-light-nude);
+    }
+  }
+`;
+export const FilterRatingDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 200px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid var(--color-light-gray);
+  padding: 0 8px;
+  cursor: pointer;
+`;
+
+export const CommentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 50px 24px 0 24px;
+`;
+export const CommentInfoDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding-bottom: 8px;
+`;
+export const CommentNameDiv = styled.div`
+  display: flex;
+  align-items: center;
+  p {
+    font-size: 20px;
+    padding: 4px 12px;
+    border-radius: 50%;
+    border: 2px solid var(--color-medium-pink);
+  }
+
+  h3 {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: 400;
+    padding: 0 12px;
+  }
+`;
+export const CommentDate = styled.p`
+  font-size: 12px;
+  font-weight: 700;
+`;
+export const CommentRatingDiv = styled.div`
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding-bottom: 24px;
+
+  svg {
+    width: 18px;
+    height: 18px;
+    margin-right: 2px;
+  }
+`;
+export const CommentaryDiv = styled.div`
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+
+  h3 {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 32px;
+  }
+
+  p {
+    font-size: 18px;
+    line-height: 32px;
+    font-weight: 400;
+  }
 `;
