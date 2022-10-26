@@ -7,7 +7,7 @@ function getRandomInt(min, max) {
 
 export let productList = [];
 
-for(let i = 1; i <= 40; i++) {
+for (let i = 1; i <= 80; i++) {
   const reviews = [];
   const reviewsCount = getRandomInt(1, 15);
 
@@ -15,18 +15,18 @@ for(let i = 1; i <= 40; i++) {
     const fakedReview = {
       id: i,
       name: "Jane",
-      stars: getRandomInt(1, 5),
+      rating: getRandomInt(1, 5),
       email: "jane@doe.com",
       title: "Good",
       text: "Sometimes might be good, sometimes might be shit",
       date: "22/10/2022 10:15",
-    }
+    };
     reviews.push(fakedReview);
   }
 
   const fakedProduct = {
     id: i,
-    name: `ProductCard${i}`,
+    name: `ProductCard ${i}`,
     price: getRandomInt(10, 199),
     image: productPic,
     rating: getRandomInt(1, 5),

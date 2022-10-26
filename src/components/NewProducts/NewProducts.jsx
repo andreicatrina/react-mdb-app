@@ -20,6 +20,8 @@ import {
   RightSliderButton,
   LeftSliderButton,
   ProductContainer2,
+  SeeAllContainer,
+  SeeAllButton,
 } from "./components";
 
 import { productList } from "./slider";
@@ -48,15 +50,20 @@ const NewProducts = () => {
         <TextContainer>
           <Title>Produse Noi</Title>
           <Paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae,
-            accusamus porro fugit deserunt harum fuga!
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae, accusamus porro fugit deserunt harum
+            fuga!
           </Paragraph>
         </TextContainer>
+
+        <Link to={"/products"}>
+          <SeeAllContainer>
+            <SeeAllButton>VEZI TOATE</SeeAllButton>
+          </SeeAllContainer>
+        </Link>
 
         <ProductContainer>
           <ProductContainer2 ref={divReference}>
             {productList.map((product, i) => {
-              console.log(product.rating)
               return (
                 <ProductCard key={i}>
                   <Link to={`/products/${product.id}`}>

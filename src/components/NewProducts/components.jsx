@@ -48,6 +48,27 @@ export const Paragraph = styled.p`
   }
 `;
 
+export const SeeAllContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  max-width: 100%;
+  padding: 0 24px;
+  margin: 0 auto;
+`;
+
+export const SeeAllButton = styled.button`
+  width: 100%;
+  max-width: 260px;
+  height: 60px;
+  background-color: var(--color-medium-pink);
+  color: var(--color-white);
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 12px;
+  cursor: pointer;
+`;
+
 export const ProductContainer = styled.div`
   position: relative;
 `;
