@@ -17,22 +17,9 @@ import { Link } from "react-router-dom";
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
-  const [showMenuHover, setShowMenuHover] = useState(false);
 
   function scrollToContact() {
     window.scrollTo(0, 2000);
-  }
-
-  function menuOnHover() {
-    if (showMenuHover === false) {
-      setShowMenuHover(true);
-    } else {
-      setShowMenuHover(false);
-    }
-  }
-
-  function menuOffHover() {
-    setShowMenuHover(false);
   }
 
   function menuClick() {
@@ -80,10 +67,41 @@ const Header = () => {
               {showMenu === true ? <AiOutlineClose /> : <AiOutlineMenu />}
             </div>
             <div className={s.headerMenu}>
-              <Link onMouseLeave={menuOffHover} onMouseEnter={menuOnHover} to="/products">
-                SHOP
-              </Link>
-              <a href="#">ABOUT US</a>
+              <div className={s.hoverMenuParent}>
+                <Link to="/products">SHOP</Link>
+                <div className={s.menuHoverContainerParent}>
+                  <div className={s.menuHoverContainer}>
+                    <div className={s.menuHoverLinks}>
+                      <a href="">Cele mai noi produse</a>
+                      <a href="">Bestsellers</a>
+                      <a href="">Colectii</a>
+                      <a href="">Pentru Ea</a>
+                      <a href="">Pentru El</a>
+                      <a href="">Cupluri</a>
+                    </div>
+                    <div className={s.menuHoverProducts}>
+                      <div className={s.productContainer}>
+                        <img src={braceletCover3} alt="" />
+                        <p>Nume Produs</p>
+                      </div>
+                      <div className={s.productContainer}>
+                        <img src={braceletCover3} alt="" />
+                        <p>Nume Produs</p>
+                      </div>
+                      <div className={s.productContainer}>
+                        <img src={braceletCover3} alt="" />
+                        <p>Nume Produs</p>
+                      </div>
+                      <div className={s.productContainer}>
+                        <img src={braceletCover3} alt="" />
+                        <p>Nume Produs</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <Link to="/about">ABOUT US</Link>
               <a onClick={scrollToContact}>CONTACT</a>
             </div>
           </div>
@@ -115,36 +133,6 @@ const Header = () => {
       {showSearch === true ? (
         <div className={s.searchContainer}>
           <input className={s.searchInput} type="search" placeholder="Ce anume cauti?" />
-        </div>
-      ) : null}
-      {showMenuHover === true ? (
-        <div className={s.menuHoverContainer}>
-          <div className={s.menuHoverLinks}>
-            <a href="">Cele mai noi produse</a>
-            <a href="">Bestsellers</a>
-            <a href="">Colectii</a>
-            <a href="">Pentru Ea</a>
-            <a href="">Pentru El</a>
-            <a href="">Cupluri</a>
-          </div>
-          <div className={s.menuHoverProducts}>
-            <div className={s.productContainer}>
-              <img src={braceletCover3} alt="" />
-              <p>Nume Produs</p>
-            </div>
-            <div className={s.productContainer}>
-              <img src={braceletCover3} alt="" />
-              <p>Nume Produs</p>
-            </div>
-            <div className={s.productContainer}>
-              <img src={braceletCover3} alt="" />
-              <p>Nume Produs</p>
-            </div>
-            <div className={s.productContainer}>
-              <img src={braceletCover3} alt="" />
-              <p>Nume Produs</p>
-            </div>
-          </div>
         </div>
       ) : null}
     </header>

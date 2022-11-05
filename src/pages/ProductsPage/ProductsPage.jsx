@@ -28,6 +28,9 @@ import {
   Sort,
   SortOptions,
   PageSelectorButton,
+  ByCollectionFilterDiv,
+  SpanIconContainer,
+  CheckboxLinkDiv,
 } from "./components";
 
 import braceletCover2 from "../../images/braceletCover2.jpg";
@@ -50,13 +53,31 @@ const ProductsPage = () => {
   const [showSorting, setShowSorting] = useState(false);
   const [cartProducts, setCartProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [collectionFilterOpen, setCollectionFilterOpen] = useState(false);
+  const [selectedCollections, setSelectedCollections] = useState(["Pentru El", "Pentru Ea", "Cupluri"]);
 
   const pageSize = 12;
   const numberOfPages = Math.ceil(productList.length / pageSize);
 
-  const params = useParams();
-  const productIdAsNumber = parseInt(params.productId);
-  const product = getProductById(productIdAsNumber);
+  function addCollection(collection) {
+    const newSelectedCollection = selectedCollections.concat([collection]);
+    setSelectedCollections(newSelectedCollection);
+  }
+
+  function removeCollection(collection) {
+    const newSelectedCollections = selectedCollections.filter((selectedCollection) => {
+      return selectedCollection !== collection;
+    });
+    setSelectedCollections(newSelectedCollections);
+  }
+
+  function inputEvent(event, collection) {
+    if (event.target.checked === true) {
+      addCollection(collection);
+    } else {
+      removeCollection(collection);
+    }
+  }
 
   function sortingFunction() {
     if (showSorting === false) {
@@ -78,6 +99,14 @@ const ProductsPage = () => {
     }
   }
 
+  function openCollectionFilters() {
+    if (collectionFilterOpen === false) {
+      setCollectionFilterOpen(true);
+    } else {
+      setCollectionFilterOpen(false);
+    }
+  }
+
   function onClickLeft() {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
@@ -89,8 +118,12 @@ const ProductsPage = () => {
       setCurrentPage(currentPage + 1);
     }
   }
+  const productsFilteredByCollection = productList.filter((product) => {
+    // Filtram produsul dupa colectie (colectia sa existe in lista selectedCollections)
+    return selectedCollections.includes(product.collection);
+  });
 
-  const productsOfPage = productList.filter((product, idx) => {
+  const productsOfPage = productsFilteredByCollection.filter((product, idx) => {
     if ((currentPage - 1) * pageSize <= idx && currentPage * pageSize - 1 >= idx) {
       return true;
     }
@@ -122,7 +155,7 @@ const ProductsPage = () => {
         <UpContainer>
           <TextImageContainer>
             <TextContainer>
-              <h2>All</h2>
+              <h2>Shop All</h2>
             </TextContainer>
             <ImageContainer>
               <img src={braceletCover2} />
@@ -132,8 +165,8 @@ const ProductsPage = () => {
         <DownContainer>
           <FilterContainer>
             <h4>Filtreaza Dupa:</h4>
-            <SortByContainer>
-              <Sort onClick={sortingFunction}>
+            <SortByContainer onClick={sortingFunction}>
+              <Sort>
                 SORTEAZA DUPA
                 {showSorting === true ? (
                   <SortOptions>
@@ -147,8 +180,45 @@ const ProductsPage = () => {
               <FiArrowDown />
             </SortByContainer>
             <ByCollectionContainer>
-              <span>COLECTII</span>
-              <FiArrowDown />
+              <SpanIconContainer onClick={openCollectionFilters}>
+                <span>COLECTII</span>
+                <FiArrowDown />
+              </SpanIconContainer>
+
+              {collectionFilterOpen === true ? (
+                <ByCollectionFilterDiv>
+                  <CheckboxLinkDiv>
+                    <input
+                      type="checkbox"
+                      defaultChecked={true}
+                      onChange={(event) => {
+                        inputEvent(event, "Pentru El");
+                      }}
+                    />
+                    <span>Pentru El</span>
+                  </CheckboxLinkDiv>
+                  <CheckboxLinkDiv>
+                    <input
+                      type="checkbox"
+                      defaultChecked={true}
+                      onChange={(event) => {
+                        inputEvent(event, "Pentru Ea");
+                      }}
+                    />
+                    <span>Pentru Ea</span>
+                  </CheckboxLinkDiv>
+                  <CheckboxLinkDiv>
+                    <input
+                      type="checkbox"
+                      defaultChecked={true}
+                      onChange={(event) => {
+                        inputEvent(event, "Cupluri");
+                      }}
+                    />
+                    <span>Cupluri</span>
+                  </CheckboxLinkDiv>
+                </ByCollectionFilterDiv>
+              ) : null}
             </ByCollectionContainer>
           </FilterContainer>
           <ProductsContainer>

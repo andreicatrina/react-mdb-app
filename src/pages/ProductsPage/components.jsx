@@ -16,6 +16,10 @@ export const DownContainer = styled.div`
   margin: 0 auto;
   margin-top: 50px;
   padding: 0 24px;
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+  }
 `;
 
 export const TextImageContainer = styled.div`
@@ -25,12 +29,18 @@ export const TextImageContainer = styled.div`
   width: 100%;
   max-width: 1200px;
   border-radius: 16px;
-  background-color: #d9f1f4;
+  background-color: #e3faff;
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+  }
 `;
 
 export const TextContainer = styled.div`
   display: flex;
   justify-content: center;
+  height: 100%;
+
   width: 100%;
   max-width: 1000px;
 
@@ -38,6 +48,12 @@ export const TextContainer = styled.div`
     font-size: 48px;
     line-height: 63px;
     font-weight: 400;
+  }
+
+  @media (max-width: 1000px) {
+    order: 2;
+    height: 210px;
+    align-items: center;
   }
 `;
 
@@ -49,6 +65,20 @@ export const ImageContainer = styled.div`
     border-top-right-radius: 16px;
     border-bottom-right-radius: 16px;
     object-fit: cover;
+    order: 1;
+  }
+
+  @media (max-width: 1000px) {
+    max-height: 1000px;
+    img {
+      width: 100%;
+      height: 100%;
+      max-width: 950px;
+      max-height: 950px;
+      order: 1;
+      border-bottom-right-radius: 0;
+      border-top-left-radius: 16px;
+    }
   }
 `;
 
@@ -66,6 +96,12 @@ export const FilterContainer = styled.div`
     text-decoration: underline;
     text-underline-offset: 3px;
   }
+
+  @media (max-width: 1000px) {
+    /* align-items: center; */
+    justify-content: center;
+    max-width: 100%;
+  }
 `;
 
 export const SortByContainer = styled.div`
@@ -73,6 +109,14 @@ export const SortByContainer = styled.div`
   align-items: center;
   gap: 8px;
   margin-bottom: 12px;
+  position: relative;
+
+  @media (max-width: 1000px) {
+    justify-content: space-between;
+  }
+
+  svg {
+  }
 `;
 
 export const Sort = styled.div`
@@ -81,7 +125,6 @@ export const Sort = styled.div`
   font-weight: 600;
   letter-spacing: 1px;
   cursor: pointer;
-  position: relative;
 `;
 
 export const SortOptions = styled.div`
@@ -93,8 +136,9 @@ export const SortOptions = styled.div`
 
   background-color: var(--color-white);
   position: absolute;
-  top: 16px;
-  right: -120px;
+  top: 20px;
+  right: 10px;
+
   a {
     font-size: 10px;
     font-weight: 400;
@@ -112,7 +156,9 @@ export const SortOptions = styled.div`
 
 export const ByCollectionContainer = styled.div`
   display: flex;
-  align-items: center;
+  /* align-items: center; */
+  flex-direction: column;
+  justify-content: center;
   gap: 8px;
   margin-bottom: 12px;
 
@@ -124,11 +170,59 @@ export const ByCollectionContainer = styled.div`
   }
 `;
 
+export const SpanIconContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  span {
+    cursor: pointer;
+  }
+
+  @media (max-width: 1000px) {
+    justify-content: space-between;
+  }
+`;
+
+export const ByCollectionFilterDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  max-width: 180px;
+  border-right: 1px solid var(--color-light-gray);
+  padding: 8px 0 8px 4px;
+  background-color: var(--color-white);
+`;
+
+export const CheckboxLinkDiv = styled.div`
+  display: flex;
+
+  input {
+    margin-right: 10px;
+  }
+
+  span {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 400;
+  }
+`;
+
 export const ProductsContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   row-gap: 60px;
   column-gap: 30px;
+
+  @media (max-width: 1000px) {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-items: center;
+    row-gap: 30px;
+    column-gap: 24px;
+    padding-top: 50px;
+  }
 `;
 
 export const ProductCard = styled.div`
@@ -137,6 +231,10 @@ export const ProductCard = styled.div`
   width: 100%;
   max-width: 280px;
   cursor: pointer;
+
+  @media (max-width: 1000px) {
+    max-width: 350px;
+  }
 `;
 
 export const ProductDetails = styled.div`

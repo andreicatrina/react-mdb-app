@@ -10,6 +10,10 @@ export let productList = [];
 for (let i = 1; i <= 80; i++) {
   const reviews = [];
   const reviewsCount = getRandomInt(1, 15);
+  const collections = ["Pentru El", "Pentru Ea", "Cupluri"];
+
+  const randomCollection = collections[getRandomInt(0, 2)];
+  // console.log(randomCollection);
 
   for (let i = 1; i <= reviewsCount; i++) {
     const fakedReview = {
@@ -31,7 +35,11 @@ for (let i = 1; i <= 80; i++) {
     image: productPic,
     rating: getRandomInt(1, 5),
     reviews,
+    collection: randomCollection,
   };
+  // console.log(fakedProduct.name);
+  // console.log(fakedProduct.collection);
+  // console.log(fakedProduct);
 
   productList.push(fakedProduct);
 }
