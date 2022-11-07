@@ -54,28 +54,30 @@ const ProductsPage = () => {
   const [cartProducts, setCartProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [collectionFilterOpen, setCollectionFilterOpen] = useState(false);
-  const [selectedCollections, setSelectedCollections] = useState(["Pentru El", "Pentru Ea", "Cupluri"]);
+  const [selectedCollections, setSelectedCollections] = useState(["Pentru El", "Pentru Ea", "Cupluri"]); //1.
 
   const pageSize = 12;
   const numberOfPages = Math.ceil(productList.length / pageSize);
 
   function addCollection(collection) {
     const newSelectedCollection = selectedCollections.concat([collection]);
-    setSelectedCollections(newSelectedCollection);
+    setSelectedCollections(newSelectedCollection); //3
   }
 
   function removeCollection(collection) {
     const newSelectedCollections = selectedCollections.filter((selectedCollection) => {
       return selectedCollection !== collection;
     });
-    setSelectedCollections(newSelectedCollections);
+    setSelectedCollections(newSelectedCollections); //3
   }
 
   function inputEvent(event, collection) {
     if (event.target.checked === true) {
-      addCollection(collection);
+      addCollection(collection); //4 //5
+      console.log(event);
+      console.log(event.target.checked);
     } else {
-      removeCollection(collection);
+      removeCollection(collection); //4 //5
     }
   }
 
@@ -120,8 +122,10 @@ const ProductsPage = () => {
   }
   const productsFilteredByCollection = productList.filter((product) => {
     // Filtram produsul dupa colectie (colectia sa existe in lista selectedCollections)
-    return selectedCollections.includes(product.collection);
+    console.log(selectedCollections.includes(product.collection));
+    return selectedCollections.includes(product.collection); //3
   });
+  console.log(productsFilteredByCollection);
 
   const productsOfPage = productsFilteredByCollection.filter((product, idx) => {
     if ((currentPage - 1) * pageSize <= idx && currentPage * pageSize - 1 >= idx) {
@@ -192,7 +196,7 @@ const ProductsPage = () => {
                       type="checkbox"
                       defaultChecked={true}
                       onChange={(event) => {
-                        inputEvent(event, "Pentru El");
+                        inputEvent(event, "Pentru El"); //2
                       }}
                     />
                     <span>Pentru El</span>
@@ -202,7 +206,7 @@ const ProductsPage = () => {
                       type="checkbox"
                       defaultChecked={true}
                       onChange={(event) => {
-                        inputEvent(event, "Pentru Ea");
+                        inputEvent(event, "Pentru Ea"); //2
                       }}
                     />
                     <span>Pentru Ea</span>
@@ -212,7 +216,7 @@ const ProductsPage = () => {
                       type="checkbox"
                       defaultChecked={true}
                       onChange={(event) => {
-                        inputEvent(event, "Cupluri");
+                        inputEvent(event, "Cupluri"); //2
                       }}
                     />
                     <span>Cupluri</span>
