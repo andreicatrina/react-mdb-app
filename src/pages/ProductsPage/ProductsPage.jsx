@@ -241,7 +241,7 @@ const ProductsPage = () => {
                       </RatingContainer>
                       <NamePriceContainer>
                         <Name>{product.name}</Name>
-                        <Price>{`${product.price} LEI`}</Price>
+                        <Price>{`${product.price} RON`}</Price>
                       </NamePriceContainer>
                     </ProductDetails>
                   </Link>

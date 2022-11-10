@@ -55,6 +55,13 @@ export const TextContainer = styled.div`
     height: 210px;
     align-items: center;
   }
+
+  @media (max-width: 550px) {
+    h2 {
+      font-size: 36px;
+      line-height: 47px;
+    }
+  }
 `;
 
 export const ImageContainer = styled.div`
@@ -253,6 +260,12 @@ export const RatingContainer = styled.div`
 
   svg {
     margin-right: 2px;
+    color: var(--color-black);
+  }
+
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: center;
   }
 `;
 
@@ -264,12 +277,29 @@ export const Name = styled.p`
   font-size: 18px;
   line-height: 24px;
   text-align: left;
+  color: var(--color-black);
+
+  @media (max-width: 768px) {
+    text-align: center;
+  }
+
+  @media (max-width: 550px) {
+    font-size: 14px;
+    line-height: 20px;
+  }
 `;
 export const Price = styled.p`
   font-size: 16px;
   line-height: 24px;
   font-weight: 700;
   text-align: left;
+  color: var(--color-black);
+
+  @media (max-width: 550px) {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 32px;
+  }
 `;
 
 export const AddToCart = styled.button`

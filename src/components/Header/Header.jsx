@@ -72,12 +72,24 @@ const Header = () => {
                 <div className={s.menuHoverContainerParent}>
                   <div className={s.menuHoverContainer}>
                     <div className={s.menuHoverLinks}>
-                      <a href="">Cele mai noi produse</a>
-                      <a href="">Bestsellers</a>
-                      <a href="">Colectii</a>
-                      <a href="">Pentru Ea</a>
-                      <a href="">Pentru El</a>
-                      <a href="">Cupluri</a>
+                      <a className={s.links} href="">
+                        Cele mai noi produse
+                      </a>
+                      <a className={s.links} href="">
+                        Bestsellers
+                      </a>
+                      <a className={s.links} href="">
+                        Colectii
+                      </a>
+                      <a className={s.links} href="">
+                        Pentru Ea
+                      </a>
+                      <a className={s.links} href="">
+                        Pentru El
+                      </a>
+                      <a className={s.links} href="">
+                        Cupluri
+                      </a>
                     </div>
                     <div className={s.menuHoverProducts}>
                       <div className={s.productContainer}>

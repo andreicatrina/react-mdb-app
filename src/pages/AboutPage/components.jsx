@@ -109,7 +109,7 @@ export const CardsDiv = styled.div`
   }
 `;
 export const CardContainer = styled.div`
-  background-color: #f0f0f0;
+  background-color: #f7e3d9;
   display: flex;
   flex-direction: column;
   align-items: center;
