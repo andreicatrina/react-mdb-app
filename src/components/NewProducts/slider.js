@@ -23,6 +23,7 @@ for (let i = 1; i <= 80; i++) {
       email: "jane@doe.com",
       title: "Good",
       text: "Sometimes might be good, sometimes might be shit",
+      date: new Date(`${getRandomInt(1, 30)} Oct 2022 ${getRandomInt(0, 23)}:00:00`),
     };
     reviews.push(fakedReview);
   }

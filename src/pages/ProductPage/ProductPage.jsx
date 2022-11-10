@@ -381,7 +381,7 @@ const ProductPage = () => {
                   <p>{review.name[0].toUpperCase()}</p>
                   <h3>{review.name}</h3>
                 </CommentNameDiv>
-                <CommentDate>{review.date}</CommentDate>
+                <CommentDate>{review.date.toLocaleString()}</CommentDate>
               </CommentInfoDiv>
 
               <CommentRatingDiv>
