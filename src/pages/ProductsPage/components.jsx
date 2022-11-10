@@ -145,19 +145,20 @@ export const SortOptions = styled.div`
   position: absolute;
   top: 20px;
   right: 10px;
+`;
 
-  a {
-    font-size: 10px;
-    font-weight: 400;
-    letter-spacing: 1px;
-    line-height: 22px;
-    font-family: "Nanum Gothic", sans-serif;
-    white-space: nowrap;
-    padding: 6px;
+export const SortOptionButton = styled.button`
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  line-height: 22px;
+  font-family: "Nanum Gothic", sans-serif;
+  white-space: nowrap;
+  padding: 6px;
+  background-color: ${(props) => props.selected ? "var(--color-medium-nude)" : "transparent"};
 
-    :hover {
-      background-color: var(--color-medium-nude);
-    }
+  :hover {
+    background-color: var(--color-medium-nude);
   }
 `;
 

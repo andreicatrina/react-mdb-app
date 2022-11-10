@@ -31,6 +31,7 @@ import {
   ByCollectionFilterDiv,
   SpanIconContainer,
   CheckboxLinkDiv,
+  SortOptionButton,
 } from "./components";
 
 import braceletCover2 from "../../images/braceletCover2.jpg";
@@ -55,7 +56,21 @@ const ProductsPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [collectionFilterOpen, setCollectionFilterOpen] = useState(false);
   const [selectedCollections, setSelectedCollections] = useState(["Pentru El", "Pentru Ea", "Cupluri"]); //1.
+  const [sortingType, setSortingType] = useState("most-popular");
 
+  const sortingOptions = [{
+    name: "Pret crescator",
+    type: "price-asc"
+  }, {
+    name: "Pret descrescator",
+    type: "price-desc"
+  }, { 
+    name: "Cele mai noi",
+    type: "newest"
+  }, { 
+    name: "Cele mai populare",
+    type: "most-popular"
+  }];
   const pageSize = 12;
   const numberOfPages = Math.ceil(productList.length / pageSize);
 
@@ -125,7 +140,39 @@ const ProductsPage = () => {
     console.log(selectedCollections.includes(product.collection));
     return selectedCollections.includes(product.collection); //3
   });
-  console.log(productsFilteredByCollection);
+  productsFilteredByCollection.sort((product1, product2) => {
+    if (sortingType === "most-popular") {
+      if (product1.rating > product2.rating) {
+        return -1;
+      } else {
+        return 0;
+      }
+    }
+
+    if (sortingType === "price-asc") {
+      if (product1.price < product2.price) {
+        return -1;
+      } else {
+        return 0;
+      }
+    }
+
+    if (sortingType === "price-desc") {
+      if (product1.price > product2.price) {
+        return -1;
+      } else {
+        return 0;
+      }
+    }
+
+    if (sortingType === "newest") {
+      if (product1.date < product2.date) {
+        return -1;
+      } else {
+        return 0;
+      }
+    }
+  });
 
   const productsOfPage = productsFilteredByCollection.filter((product, idx) => {
     if ((currentPage - 1) * pageSize <= idx && currentPage * pageSize - 1 >= idx) {
@@ -174,10 +221,16 @@ const ProductsPage = () => {
                 SORTEAZA DUPA
                 {showSorting === true ? (
                   <SortOptions>
-                    <a>PRET CRESCATOR</a>
-                    <a>PRET DESCRESCATOR</a>
-                    <a>CELE MAI NOI</a>
-                    <a>CELE MAI POPULARE</a>
+                    {sortingOptions.map((sortingOption) => {
+                      return (
+                        <SortOptionButton 
+                          selected={sortingType === sortingOption.type}
+                          onClick={() => { setSortingType(sortingOption.type) }}
+                        >
+                          {sortingOption.name.toUpperCase()}
+                        </SortOptionButton>
+                      )
+                    })}
                   </SortOptions>
                 ) : null}
               </Sort>

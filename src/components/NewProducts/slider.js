@@ -23,7 +23,6 @@ for (let i = 1; i <= 80; i++) {
       email: "jane@doe.com",
       title: "Good",
       text: "Sometimes might be good, sometimes might be shit",
-      date: "22/10/2022 10:15",
     };
     reviews.push(fakedReview);
   }
@@ -36,6 +35,7 @@ for (let i = 1; i <= 80; i++) {
     rating: getRandomInt(1, 5),
     reviews,
     collection: randomCollection,
+    date: Date.parse(`${getRandomInt(1, 30)} Oct 2022 00:00:00`),
   };
   // console.log(fakedProduct.name);
   // console.log(fakedProduct.collection);
