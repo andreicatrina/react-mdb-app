@@ -46,33 +46,66 @@ import { BiRightArrowAlt } from "react-icons/bi";
 
 import { productList } from "../../components/NewProducts/slider";
 import { getProductById } from "../../components/NewProducts/slider";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 
 import { useState } from "react";
+import { useEffect } from "react";
+import { getProducts } from "../../utils/firebase";
 
 const ProductsPage = () => {
   const [showSorting, setShowSorting] = useState(false);
   const [cartProducts, setCartProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [collectionFilterOpen, setCollectionFilterOpen] = useState(false);
-  const [selectedCollections, setSelectedCollections] = useState(["Pentru El", "Pentru Ea", "Cupluri"]); //1.
+  const [selectedCollections, setSelectedCollections] = useState([]); //1.
   const [sortingType, setSortingType] = useState("most-popular");
+  const [products, setProducts] = useState([]);
 
-  const sortingOptions = [{
-    name: "Pret crescator",
-    type: "price-asc"
-  }, {
-    name: "Pret descrescator",
-    type: "price-desc"
-  }, { 
-    name: "Cele mai noi",
-    type: "newest"
-  }, { 
-    name: "Cele mai populare",
-    type: "most-popular"
-  }];
+  let location = useLocation();
+
+  useEffect(() => {
+    setProductsFromFirebase();
+  }, []);
+
+  async function setProductsFromFirebase() {
+    let products = await getProducts();
+    setProducts(products);
+  }
+
+  useEffect(() => {
+    let search = location.search;
+
+    console.log(search);
+    let searchParams = new URLSearchParams(search);
+    let collectionsSearchParams = searchParams.get("collections");
+    if (!collectionsSearchParams) {
+      setSelectedCollections(["pentru-el", "pentru-ea", "cupluri"]);
+    } else {
+      let collectionsFromQueryParams = searchParams.get("collections").split(",");
+      setSelectedCollections(collectionsFromQueryParams);
+      console.log(collectionsFromQueryParams);
+    }
+  }, []);
+
+  const sortingOptions = [
+    {
+      name: "Pret crescator",
+      type: "price-asc",
+    },
+    {
+      name: "Pret descrescator",
+      type: "price-desc",
+    },
+    {
+      name: "Cele mai noi",
+      type: "newest",
+    },
+    {
+      name: "Cele mai populare",
+      type: "most-popular",
+    },
+  ];
   const pageSize = 12;
-  const numberOfPages = Math.ceil(productList.length / pageSize);
 
   function addCollection(collection) {
     const newSelectedCollection = selectedCollections.concat([collection]);
@@ -135,11 +168,12 @@ const ProductsPage = () => {
       setCurrentPage(currentPage + 1);
     }
   }
-  const productsFilteredByCollection = productList.filter((product) => {
+  const productsFilteredByCollection = products.filter((product) => {
     // Filtram produsul dupa colectie (colectia sa existe in lista selectedCollections)
     console.log(selectedCollections.includes(product.collection));
     return selectedCollections.includes(product.collection); //3
   });
+
   productsFilteredByCollection.sort((product1, product2) => {
     if (sortingType === "most-popular") {
       if (product1.rating > product2.rating) {
@@ -173,6 +207,8 @@ const ProductsPage = () => {
       }
     }
   });
+
+  const numberOfPages = Math.ceil(productsFilteredByCollection.length / pageSize);
 
   const productsOfPage = productsFilteredByCollection.filter((product, idx) => {
     if ((currentPage - 1) * pageSize <= idx && currentPage * pageSize - 1 >= idx) {
@@ -223,13 +259,15 @@ const ProductsPage = () => {
                   <SortOptions>
                     {sortingOptions.map((sortingOption) => {
                       return (
-                        <SortOptionButton 
+                        <SortOptionButton
                           selected={sortingType === sortingOption.type}
-                          onClick={() => { setSortingType(sortingOption.type) }}
+                          onClick={() => {
+                            setSortingType(sortingOption.type);
+                          }}
                         >
                           {sortingOption.name.toUpperCase()}
                         </SortOptionButton>
-                      )
+                      );
                     })}
                   </SortOptions>
                 ) : null}
@@ -247,9 +285,9 @@ const ProductsPage = () => {
                   <CheckboxLinkDiv>
                     <input
                       type="checkbox"
-                      defaultChecked={true}
+                      checked={selectedCollections.includes("pentru-el")}
                       onChange={(event) => {
-                        inputEvent(event, "Pentru El"); //2
+                        inputEvent(event, "pentru-el"); //2
                       }}
                     />
                     <span>Pentru El</span>
@@ -257,9 +295,9 @@ const ProductsPage = () => {
                   <CheckboxLinkDiv>
                     <input
                       type="checkbox"
-                      defaultChecked={true}
+                      checked={selectedCollections.includes("pentru-ea")}
                       onChange={(event) => {
-                        inputEvent(event, "Pentru Ea"); //2
+                        inputEvent(event, "pentru-ea"); //2
                       }}
                     />
                     <span>Pentru Ea</span>
@@ -267,9 +305,9 @@ const ProductsPage = () => {
                   <CheckboxLinkDiv>
                     <input
                       type="checkbox"
-                      defaultChecked={true}
+                      checked={selectedCollections.includes("cupluri")}
                       onChange={(event) => {
-                        inputEvent(event, "Cupluri"); //2
+                        inputEvent(event, "cupluri"); //2
                       }}
                     />
                     <span>Cupluri</span>
@@ -284,7 +322,7 @@ const ProductsPage = () => {
                 <ProductCard>
                   <Link to={`/products/${product.id}`}>
                     <ProductDetails>
-                      <ProductPic src={product.image} alt="" />
+                      <ProductPic src={product.images[0]} alt="" />
                       <RatingContainer>
                         {product.rating >= 1 ? <AiFillStar /> : <AiOutlineStar />}
                         {product.rating >= 2 ? <AiFillStar /> : <AiOutlineStar />}

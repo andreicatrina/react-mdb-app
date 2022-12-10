@@ -51,6 +51,11 @@ export const Title = styled.h2`
   @media (max-width: 1000px) {
     text-align: center;
   }
+
+  @media (max-width: 768px) {
+    font-size: 36px;
+    line-height: 47px;
+  }
 `;
 
 export const Paragraph = styled.p`
@@ -62,6 +67,11 @@ export const Paragraph = styled.p`
   @media (max-width: 1000px) {
     text-align: center;
     padding-bottom: 32px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+    line-height: 28px;
   }
 `;
 
@@ -86,6 +96,11 @@ export const InfoTitle = styled.h2`
   font-size: 44px;
   line-height: 58px;
   font-weight: 400;
+
+  @media (max-width: 768px) {
+    font-size: 32px;
+    line-height: 39px;
+  }
 `;
 export const InfoParagraph = styled.p`
   text-align: center;
@@ -93,6 +108,11 @@ export const InfoParagraph = styled.p`
   font-size: 18px;
   line-height: 32px;
   font-weight: 400;
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+    line-height: 28px;
+  }
 `;
 
 export const CardsDiv = styled.div`
@@ -109,7 +129,7 @@ export const CardsDiv = styled.div`
   }
 `;
 export const CardContainer = styled.div`
-  background-color: #f7e3d9;
+  background-color: #fcecf0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -134,6 +154,7 @@ export const CardTitle = styled.h3`
   font-size: 18px;
   font-weight: 400;
   line-height: 24px;
+  text-align: center;
 `;
 export const CardParagraph = styled.p`
   text-align: center;
@@ -159,7 +180,7 @@ export const LeftContainer = styled.div`
   align-items: center;
   width: 100%;
   padding: 60px 60px;
-  background-color: var(--color-medium-nude);
+  background-color: #f0ecfc;
   border-bottom-left-radius: 16px;
   border-top-left-radius: 16px;
 
@@ -167,14 +188,23 @@ export const LeftContainer = styled.div`
     margin: 0 24px;
     border-radius: 16px;
   }
+
+  @media (max-width: 600px) {
+    padding: 30px 30px;
+  }
 `;
 export const LeftText = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
   background-color: var(--color-white);
   padding: 24px;
   border-radius: 16px;
+
+  a {
+    display: flex;
+    justify-content: center;
+  }
 
   @media (max-width: 1000px) {
     padding: 42px;
@@ -185,12 +215,23 @@ export const LeftTitle = styled.h3`
   font-weight: 400;
   line-height: 48px;
   text-align: center;
+  padding: 12px 0;
+
+  @media (max-width: 769px) {
+    font-size: 30px;
+    line-height: 39px;
+  }
 `;
 export const LeftParagraph = styled.p`
   font-size: 18px;
   font-weight: 400;
   line-height: 32px;
   text-align: center;
+
+  @media (max-width: 769px) {
+    font-size: 14px;
+    line-height: 28px;
+  }
 `;
 export const SeeProductsButton = styled.button`
   background-color: var(--color-medium-pink);
@@ -208,6 +249,10 @@ export const SeeProductsButton = styled.button`
 
   @media (max-width: 1000px) {
     max-width: 700px;
+  }
+
+  @media (max-width: 600px) {
+    white-space: nowrap;
   }
 `;
 

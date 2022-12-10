@@ -6,6 +6,7 @@ import Homepage from "./pages/Homepage/Homepage";
 import ProductPage from "./pages/ProductPage/ProductPage";
 import ProductsPage from "./pages/ProductsPage/ProductsPage";
 import AboutPage from "./pages/AboutPage/AboutPage";
+import AccountPage from "./pages/AccountPage/AccountPage";
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
         </Route>
         <Route path={"/about"}>
           <AboutPage />
+        </Route>
+        <Route path={"/account"}>
+          <AccountPage />
         </Route>
       </Switch>
     </Router>

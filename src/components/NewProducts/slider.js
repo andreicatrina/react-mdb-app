@@ -10,7 +10,7 @@ export let productList = [];
 for (let i = 1; i <= 80; i++) {
   const reviews = [];
   const reviewsCount = getRandomInt(1, 15);
-  const collections = ["Pentru El", "Pentru Ea", "Cupluri"];
+  const collections = ["pentru-el", "pentru-ea", "cupluri"];
 
   const randomCollection = collections[getRandomInt(0, 2)];
   // console.log(randomCollection);
@@ -53,10 +53,10 @@ export const getProductById = function (id) {
   return filteredProducts[0];
 };
 
-const searchProductByName = function (str) {
+export const searchProductsByName = function (str) {
   let filteredProducts = productList.filter((product) => {
-    return product.name.includes(str);
+    return product.name.toLowerCase().includes(str.toLowerCase());
   });
 
-  return filteredProducts[0];
+  return filteredProducts;
 };

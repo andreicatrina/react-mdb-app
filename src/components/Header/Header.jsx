@@ -4,6 +4,7 @@ import { HiSearch } from "react-icons/hi";
 import { RiShoppingBagLine } from "react-icons/ri";
 import { AiOutlineMenu } from "react-icons/ai";
 import { AiOutlineClose } from "react-icons/ai";
+import { BsPersonFill } from "react-icons/bs";
 import { ReactComponent as Logo } from "../../images/logoTransparent.svg";
 import { BsArrowRightShort } from "react-icons/bs";
 import logo from "../../images/Transparent2.png";
@@ -13,13 +14,21 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { searchProductsByName, productList } from "../NewProducts/slider";
 
 const Header = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
+  const [search, setSearch] = useState("");
+
+  let searchedProducts = search === "" ? [] : searchProductsByName(search).slice(0, 10);
+
+  function onInputChange(event) {
+    setSearch(event.target.value);
+  }
 
   function scrollToContact() {
-    window.scrollTo(0, 2000);
+    window.scrollTo(0, 3000);
   }
 
   function menuClick() {
@@ -78,18 +87,18 @@ const Header = () => {
                       <a className={s.links} href="">
                         Bestsellers
                       </a>
-                      <a className={s.links} href="">
+                      <Link className={s.links} to="/products">
                         Colectii
-                      </a>
-                      <a className={s.links} href="">
+                      </Link>
+                      <Link className={s.links} to="/products?collections=pentru-ea">
                         Pentru Ea
-                      </a>
-                      <a className={s.links} href="">
+                      </Link>
+                      <Link className={s.links} to="/products?collections=pentru-el">
                         Pentru El
-                      </a>
-                      <a className={s.links} href="">
+                      </Link>
+                      <Link className={s.links} to="/products?collections=cupluri">
                         Cupluri
-                      </a>
+                      </Link>
                     </div>
                     <div className={s.menuHoverProducts}>
                       <div className={s.productContainer}>
@@ -128,23 +137,42 @@ const Header = () => {
             <a className={s.shopBasket} href="#">
               <RiShoppingBagLine />
             </a>
+            <Link className={s.accountIcon} to="/account">
+              <BsPersonFill />
+            </Link>
           </div>
         </div>
 
         {showMenu === true ? (
           <div className={s.mobileMenu}>
-            <a className={s.shopMobile} href="#">
+            <Link to="/products" className={s.shopMobile}>
               SHOP
               <BsArrowRightShort />
-            </a>
-            <a href="#">ABOUT US</a>
-            <a href="#">CONTACT</a>
+            </Link>
+            <Link to="/about">ABOUT US</Link>
+            <a onClick={scrollToContact}>CONTACT</a>
           </div>
         ) : null}
       </section>
       {showSearch === true ? (
         <div className={s.searchContainer}>
-          <input className={s.searchInput} type="search" placeholder="Ce anume cauti?" />
+          <input
+            className={s.searchInput}
+            type="search"
+            placeholder="Ce anume cauti?"
+            value={search}
+            onChange={onInputChange}
+          />
+          <div className={s.searchResultsContainer}>
+            {searchedProducts.map((product) => {
+              return (
+                <Link to={`/products/${product.id}`}>
+                  <img className={s.searchProductImage} src={product.image} />
+                  {product.name}
+                </Link>
+              );
+            })}
+          </div>
         </div>
       ) : null}
     </header>

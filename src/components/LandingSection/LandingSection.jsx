@@ -11,6 +11,7 @@ import {
   LandingParagraph,
   LandingButton,
 } from "./components";
+import { Link } from "react-router-dom";
 
 const LandingSection = () => {
   return (
@@ -21,11 +22,11 @@ const LandingSection = () => {
             <LandingTitle>Lorem, ipsum dolor.</LandingTitle>
             <LandingSubtitle>Lorem ipsum dolor sit amet.</LandingSubtitle>
             <LandingParagraph>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea quod
-              quam voluptates.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea quod quam voluptates.
             </LandingParagraph>
-
-            <LandingButton className={s.buttonShop}>SHOP NOW</LandingButton>
+            <Link to="/products">
+              <LandingButton className={s.buttonShop}>SHOP NOW</LandingButton>
+            </Link>
           </LandingText>
         </LandingBox>
         <LandingBox>

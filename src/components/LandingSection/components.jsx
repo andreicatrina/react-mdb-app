@@ -33,6 +33,12 @@ export const LandingText = styled.div`
   width: 100%;
   height: 100%;
   padding: 16px;
+
+  a {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 export const LandingTitle = styled.h1`

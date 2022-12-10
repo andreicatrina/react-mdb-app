@@ -631,17 +631,11 @@ export const FilterStarsDropDown = styled.div`
   position: absolute;
   top: 40px;
 
-  p {
-    :hover {
-      background-color: var(--color-light-nude);
-      cursor: pointer;
-    }
-  }
-
-  div {
+  button {
     display: flex;
-    justify-content: left;
+    justify-content: center;
     cursor: pointer;
+    background-color: transparent;
 
     svg {
       color: var(--color-medium-pink);

@@ -63,10 +63,16 @@ export const SeeAllButton = styled.button`
   height: 60px;
   background-color: var(--color-medium-pink);
   color: var(--color-white);
+  font-family: "Nanum Gothic", sans-serif;
   font-size: 12px;
   font-weight: 700;
   border-radius: 12px;
   cursor: pointer;
+
+  @media (max-width: 1000px) {
+    max-width: 200px;
+    height: 50px;
+  }
 `;
 
 export const ProductContainer = styled.div`

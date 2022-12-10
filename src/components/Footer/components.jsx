@@ -44,6 +44,15 @@ export const ShopLinks = styled.div`
   display: flex;
   flex-direction: column;
 
+  a {
+    color: var(--color-black);
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 1.2px;
+    margin-bottom: 20px;
+    cursor: pointer;
+  }
+
   @media (max-width: 1000px) {
     text-align: center;
   }

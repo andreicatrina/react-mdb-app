@@ -47,6 +47,12 @@ export const TextContainer = styled.div`
   margin: 12px 56px;
   background-color: var(--color-white);
 
+  a {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
   @media (max-width: 1000px) {
     width: 100%;
     margin: 0 48px;

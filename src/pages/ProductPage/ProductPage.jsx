@@ -2,7 +2,6 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 
 import { useParams } from "react-router-dom";
-import { getProductById } from "../../components/NewProducts/slider";
 
 import {
   ProductPageContainer,
@@ -67,7 +66,6 @@ import {
   FilterStarsDropDown,
 } from "./components";
 
-import ProductPic1 from "../../images/ProductPic1.jpg";
 import { AiFillStar } from "react-icons/ai";
 import { FaCreativeCommonsZero } from "react-icons/fa";
 import { GiShoppingCart } from "react-icons/gi";
@@ -84,6 +82,8 @@ import { productList } from "../../components/NewProducts/slider";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { ProductPageReviewForm } from "./ProductPageReviewForm";
+import { getProductById } from "../../utils/firebase";
+import { useEffect } from "react";
 
 const ProductPage = () => {
   const [isClicked, setIsClicked] = useState(false);
@@ -92,6 +92,25 @@ const ProductPage = () => {
   const [showTips, setShowTips] = useState(false);
   const [showReview, setShowReview] = useState(false);
   const [showFilterStars, setShowFilterStars] = useState(false);
+  const [selectRating, setSelectRating] = useState(undefined);
+  const [product, setProduct] = useState(undefined);
+  const params = useParams();
+
+  useEffect(() => {
+    setProductFromFirebase(params.productId);
+  }, [params.productId]);
+
+  async function setProductFromFirebase(id) {
+    const product = await getProductById(id);
+    setProduct(product);
+    console.log(product);
+  }
+
+  function filterRating(stars) {
+    if (selectRating !== stars) {
+      setSelectRating(stars);
+    }
+  }
 
   function filterStars() {
     if (showFilterStars === false) {
@@ -152,26 +171,33 @@ const ProductPage = () => {
     divReference.current.scrollLeft -= 310;
   };
 
-  const params = useParams();
-  const productIdAsNumber = parseInt(params.productId);
-  const product = getProductById(productIdAsNumber);
-  console.log(product);
-  console.log(product.reviews);
+  let filteredReviews = (product?.reviews || []).filter((r) => {
+    if (selectRating === undefined) {
+      return true;
+    }
 
+    if (r.rating === selectRating) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  if (!product) {
+    return <p>loading</p>;
+  }
   return (
     <>
       <Header />
       <ProductPageContainer>
         <ProductImageContainer>
           <ImageContainer>
-            <img src={ProductPic1} />
+            <img src={product.images[0]} />
           </ImageContainer>
           <ImagesContainer>
-            <img src={ProductPic1} alt="" />
-            <img src={ProductPic1} alt="" />
-            <img src={ProductPic1} alt="" />
-            <img src={ProductPic1} alt="" />
-            <img src={ProductPic1} alt="" />
+            {product.images.slice(1).map((image) => (
+              <img src={image} />
+            ))}
           </ImagesContainer>
         </ProductImageContainer>
         <ProductDetailsContainer>
@@ -211,15 +237,12 @@ const ProductPage = () => {
           </InfoParagraph>
           <ProductDescriptionContainer>
             <DescriptionContainer>
-              <DescriptionTitle onClick={openDescription}>
-                DESCRIERE
-              </DescriptionTitle>
+              <DescriptionTitle onClick={openDescription}>DESCRIERE</DescriptionTitle>
               {showDescription === false ? (
                 <Description>
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde
-                  voluptatibus cupiditate molestias mollitia vitae culpa totam
-                  adipisci itaque rerum, in numquam cum quis quibusdam voluptas
-                  explicabo blanditiis incidunt? Esse, ducimus.
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde voluptatibus cupiditate molestias
+                  mollitia vitae culpa totam adipisci itaque rerum, in numquam cum quis quibusdam voluptas explicabo
+                  blanditiis incidunt? Esse, ducimus.
                 </Description>
               ) : null}
             </DescriptionContainer>
@@ -227,8 +250,8 @@ const ProductPage = () => {
               <TipsTitle onClick={openTips}>SFATURI</TipsTitle>
               {showTips === true ? (
                 <Tips>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Facere mollitia molestiae quasi cumque reprehenderit sapiente!
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere mollitia molestiae quasi cumque
+                  reprehenderit sapiente!
                 </Tips>
               ) : null}
             </TipsContainer>
@@ -241,9 +264,7 @@ const ProductPage = () => {
       <ProductsSection>
         <TextContainer>
           <Title>Produse Similare</Title>
-          <Paragraph>
-            Nu te-ai hotarat inca? Compara-l cu alte produse similare
-          </Paragraph>
+          <Paragraph>Nu te-ai hotarat inca? Compara-l cu alte produse similare</Paragraph>
         </TextContainer>
         <ProductContainer>
           <ProductContainer2 ref={divReference}>
@@ -254,31 +275,11 @@ const ProductPage = () => {
                     <ProductDetails>
                       <ProductPic src={product.image} alt="" />
                       <RatingContainer>
-                        {product.rating >= 1 ? (
-                          <AiFillStar />
-                        ) : (
-                          <AiOutlineStar />
-                        )}
-                        {product.rating >= 2 ? (
-                          <AiFillStar />
-                        ) : (
-                          <AiOutlineStar />
-                        )}
-                        {product.rating >= 3 ? (
-                          <AiFillStar />
-                        ) : (
-                          <AiOutlineStar />
-                        )}
-                        {product.rating >= 4 ? (
-                          <AiFillStar />
-                        ) : (
-                          <AiOutlineStar />
-                        )}
-                        {product.rating >= 5 ? (
-                          <AiFillStar />
-                        ) : (
-                          <AiOutlineStar />
-                        )}
+                        {product.rating >= 1 ? <AiFillStar /> : <AiOutlineStar />}
+                        {product.rating >= 2 ? <AiFillStar /> : <AiOutlineStar />}
+                        {product.rating >= 3 ? <AiFillStar /> : <AiOutlineStar />}
+                        {product.rating >= 4 ? <AiFillStar /> : <AiOutlineStar />}
+                        {product.rating >= 5 ? <AiFillStar /> : <AiOutlineStar />}
                       </RatingContainer>
                       <NamePriceContainer>
                         <Name>{product.name}</Name>
@@ -317,9 +318,7 @@ const ProductPage = () => {
             </StarsContainer>
             <NumberOfReviews>2150 Reviews</NumberOfReviews>
           </GradeContainer>
-          <WriteAReview onClick={showCustomerReview}>
-            Spune-ti parerea
-          </WriteAReview>
+          <WriteAReview onClick={showCustomerReview}>Spune-ti parerea</WriteAReview>
         </ReviewContainer>
         {showReview === true ? <ProductPageReviewForm /> : null}
       </ProductReviewSection>
@@ -334,46 +333,73 @@ const ProductPage = () => {
           </FilterRatingDiv>
           {showFilterStars === true ? (
             <FilterStarsDropDown>
-              <p>All</p>
-              <div>
+              <button
+                onClick={() => {
+                  filterRating(undefined);
+                }}
+              >
+                All
+              </button>
+              <button
+                onClick={() => {
+                  filterRating(5);
+                }}
+              >
                 <AiFillStar />
                 <AiFillStar />
                 <AiFillStar />
                 <AiFillStar />
                 <AiFillStar />
-              </div>
-              <div>
+              </button>
+              <button
+                onClick={() => {
+                  filterRating(4);
+                }}
+              >
                 <AiFillStar />
                 <AiFillStar />
                 <AiFillStar />
                 <AiFillStar />
                 <AiOutlineStar />
-              </div>
-              <div>
+              </button>
+              <button
+                onClick={() => {
+                  filterRating(3);
+                }}
+              >
                 <AiFillStar />
                 <AiFillStar />
                 <AiFillStar />
                 <AiOutlineStar />
                 <AiOutlineStar />
-              </div>
-              <div>
+              </button>
+              <button
+                onClick={() => {
+                  filterRating(2);
+                }}
+              >
                 <AiFillStar />
                 <AiFillStar />
                 <AiOutlineStar />
                 <AiOutlineStar />
                 <AiOutlineStar />
-              </div>
-              <div>
+              </button>
+              <button
+                onClick={() => {
+                  filterRating(1);
+                }}
+              >
                 <AiFillStar />
                 <AiOutlineStar />
                 <AiOutlineStar />
                 <AiOutlineStar />
                 <AiOutlineStar />
-              </div>
+              </button>
             </FilterStarsDropDown>
           ) : null}
         </FilterByRatingContainer>
-        {product.reviews.map((review) => {
+
+        {filteredReviews.map((review) => {
           return (
             <CommentContainer>
               <CommentInfoDiv>

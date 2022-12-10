@@ -29,6 +29,7 @@ import { SiFacebook } from "react-icons/si";
 import { SiInstagram } from "react-icons/si";
 import { FiPhoneCall } from "react-icons/fi";
 import { BiMailSend } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -37,7 +38,7 @@ const Footer = () => {
         <LinksContainer>
           <ShopLinks>
             <LinksTitle>Shop</LinksTitle>
-            <Links href="">Colectii</Links>
+            <Link to="/products">Colectii</Link>
             <Links href="">Produse noi</Links>
             <Links href="">Cele mai vandute</Links>
           </ShopLinks>
