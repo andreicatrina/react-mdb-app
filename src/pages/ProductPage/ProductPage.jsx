@@ -82,7 +82,7 @@ import { productList } from "../../components/NewProducts/slider";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { ProductPageReviewForm } from "./ProductPageReviewForm";
-import { getProductById } from "../../utils/firebase";
+import { getProductById, getReviewsForProduct } from "../../utils/firebase";
 import { useEffect } from "react";
 
 const ProductPage = () => {
@@ -94,6 +94,7 @@ const ProductPage = () => {
   const [showFilterStars, setShowFilterStars] = useState(false);
   const [selectRating, setSelectRating] = useState(undefined);
   const [product, setProduct] = useState(undefined);
+  const [reviews, setReviews] = useState([]);
   const params = useParams();
 
   useEffect(() => {
@@ -103,7 +104,9 @@ const ProductPage = () => {
   async function setProductFromFirebase(id) {
     const product = await getProductById(id);
     setProduct(product);
-    console.log(product);
+    const reviews = await getReviewsForProduct(product.id);
+    setReviews(reviews);
+    console.log(reviews);
   }
 
   function filterRating(stars) {
@@ -171,7 +174,7 @@ const ProductPage = () => {
     divReference.current.scrollLeft -= 310;
   };
 
-  let filteredReviews = (product?.reviews || []).filter((r) => {
+  let filteredReviews = reviews.filter((r) => {
     if (selectRating === undefined) {
       return true;
     }

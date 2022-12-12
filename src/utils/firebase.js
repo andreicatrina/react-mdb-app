@@ -42,3 +42,18 @@ export const getProductById = async (id) => {
     id: data.id,
   };
 };
+
+export const getReviewsForProduct = async (productId) => {
+  const productReviewsReference = collection(db, "products", productId, "reviews");
+  const reviews = await getDocs(productReviewsReference);
+  let reviewsList = [];
+  reviews.forEach((reviewDocument) => {
+    console.log(reviewDocument.data().date.seconds);
+    reviewsList.push({
+      ...reviewDocument.data(),
+      id: reviewDocument.id,
+      date: new Date(reviewDocument.data().date.seconds),
+    });
+  });
+  return reviewsList;
+};
