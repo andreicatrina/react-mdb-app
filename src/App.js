@@ -6,9 +6,10 @@ import Homepage from "./pages/Homepage/Homepage";
 import ProductPage from "./pages/ProductPage/ProductPage";
 import ProductsPage from "./pages/ProductsPage/ProductsPage";
 import AboutPage from "./pages/AboutPage/AboutPage";
-import ShoppingCart from "./pages/ShoppingCart/ShoppingCart";
+import AccountPage from "./pages/AccountPage/AccountPage";
 import SignInPage from "./pages/SignInPage/SignInPage";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage/ResetPasswordPage";
 
 function App() {
   return (
@@ -26,14 +27,17 @@ function App() {
         <Route path={"/about"}>
           <AboutPage />
         </Route>
-        <Route path={"/shopping-cart"}>
-          <ShoppingCart />
+        <Route path={"/account"}>
+          <AccountPage />
         </Route>
         <Route exact path={"/sign-in"}>
           <SignInPage />
         </Route>
         <Route exact path={"/sign-up"}>
           <SignUpPage />
+        </Route>
+        <Route exact path={"/reset"}>
+          <ResetPasswordPage />
         </Route>
       </Switch>
     </Router>

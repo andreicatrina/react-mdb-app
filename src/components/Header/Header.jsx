@@ -134,10 +134,10 @@ const Header = () => {
             <a onClick={showSearchBar} className={s.searchIcon} href="#">
               <HiSearch />
             </a>
-            <Link className={s.shopBasket} to="/shopping-cart">
+            <Link className={s.shopBasket} to="/">
               <RiShoppingBagLine />
             </Link>
-            <Link className={s.accountIcon} to="/sign-in">
+            <Link className={s.accountIcon} to="/account">
               <BsPersonFill />
             </Link>
           </div>

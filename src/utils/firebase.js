@@ -1,6 +1,17 @@
 import { initializeApp } from "firebase/app";
 import { getDocs, collection, getFirestore, doc, getDoc } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  signOut,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+  sendPasswordResetEmail,
+} from "firebase/auth";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -56,4 +67,80 @@ export const getReviewsForProduct = async (productId) => {
     });
   });
   return reviewsList;
+};
+
+export const signUpWithEmailAndPassword = async (email, password) => {
+  const authService = getAuth();
+  const userCredentials = await createUserWithEmailAndPassword(authService, email, password);
+  await sendEmailVerification(userCredentials.user);
+  console.log(userCredentials);
+};
+export const signInUserWithEmailAndPassword = async (email, password) => {
+  const authService = getAuth();
+  return signInWithEmailAndPassword(authService, email, password);
+};
+
+export const SendUserPasswordReset = async (resetEmail) => {
+  const authService = getAuth();
+
+  return sendPasswordResetEmail(authService, resetEmail);
+};
+
+export const signInUserWithGoogle = async () => {
+  const authService = getAuth();
+  const provider = new GoogleAuthProvider();
+  const credential = await signInWithPopup(authService, provider);
+
+  return {
+    id: credential.user.uid,
+    displayName: credential.user.displayName,
+    phoneNumber: credential.user.phoneNumber,
+    email: credential.user.email,
+    photoURL: credential.user.photoURL,
+    emailVerified: credential.user.emailVerified,
+  };
+};
+
+export const signInUserWithFacebook = async () => {
+  const authService = getAuth();
+  const provider = new FacebookAuthProvider();
+  const credential = await signInWithPopup(authService, provider);
+
+  return {
+    id: credential.user.uid,
+    displayName: credential.user.displayName,
+    phoneNumber: credential.user.phoneNumber,
+    email: credential.user.email,
+    photoURL: credential.user.photoURL,
+    emailVerified: credential.user.emailVerified,
+  };
+};
+
+export const isUserAuth = () => {
+  const authService = getAuth();
+  if (authService.currentUser) {
+    return true;
+  }
+  return false;
+};
+
+export const getCurrentUser = () => {
+  const authService = getAuth();
+  const user = authService.currentUser;
+  if (!user) {
+    return undefined;
+  }
+  return {
+    id: user.uid,
+    displayName: user.displayName,
+    phoneNumber: user.phoneNumber,
+    email: user.email,
+    photoURL: user.photoURL,
+    emailVerified: user.emailVerified,
+  };
+};
+
+export const signOutUser = async () => {
+  const authService = getAuth();
+  signOut(authService);
 };

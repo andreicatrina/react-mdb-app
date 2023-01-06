@@ -51,7 +51,7 @@ export const SignInGoogle = styled.button`
   line-height: 40px;
   cursor: pointer;
 `;
-export const SignInCredentialsContainer = styled.div`
+export const SignInCredentialsContainer = styled.form`
   width: 100%;
   padding: 24px 24px 24px 64px;
   border-left: 1px solid var(--color-light-gray);
@@ -106,6 +106,12 @@ export const ForgotPassword = styled.a`
   text-underline-offset: 2px;
   color: var(--color-medium-pink);
   cursor: pointer;
+`;
+
+export const ErrorParagraph = styled.p`
+  padding: 8px 0;
+  color: red;
+  font-weight: 500;
 `;
 
 export const SignInButtonDiv = styled.div`

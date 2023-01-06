@@ -182,4 +182,11 @@ export const ProductContainer2 = styled.div`
   align-items: center;
   padding: 16px;
   overflow: scroll;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 `;
