@@ -1,7 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
+import { signUpWithEmailAndPassword, signInUserWithFacebook, signInUserWithGoogle } from "../../utils/firebase";
 import {
   CreateAccountButtonDiv,
   EmailContainer,
@@ -20,6 +21,42 @@ import {
 } from "./components";
 
 const SignUpPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const history = useHistory();
+  const onEmailChange = (event) => {
+    setEmail(event.currentTarget.value);
+  };
+  const onPasswordChange = (event) => {
+    setPassword(event.currentTarget.value);
+  };
+
+  const onSignUpSubmit = async (event) => {
+    event.preventDefault();
+    console.log(email, password);
+    if (!email || !password) {
+      return;
+    }
+    try {
+      await signUpWithEmailAndPassword(email, password);
+      history.push("/sign-in");
+    } catch (error) {
+      console.log(JSON.stringify(error, undefined, 2));
+    }
+  };
+
+  const onClickGoogleSignIn = async () => {
+    const result = await signInUserWithGoogle();
+    console.log(result);
+    history.push("/account");
+  };
+
+  const onClickSignInFacebook = async () => {
+    const result = await signInUserWithFacebook();
+    console.log(result);
+    history.push("/account");
+  };
+
   return (
     <>
       <Header />
@@ -29,10 +66,10 @@ const SignUpPage = () => {
         </TitleContainer>
         <SignUpContainer>
           <SignUpButtonsContainer>
-            <SignUpFacebook>Sign in with Facebook</SignUpFacebook>
-            <SignUpGoogle>Sign in with Google</SignUpGoogle>
+            <SignUpFacebook onClick={onClickSignInFacebook}>Sign in with Facebook</SignUpFacebook>
+            <SignUpGoogle onClick={onClickGoogleSignIn}>Sign in with Google</SignUpGoogle>
           </SignUpButtonsContainer>
-          <SignUpCredentialsContainer>
+          <SignUpCredentialsContainer onSubmit={onSignUpSubmit}>
             <FirstNameContainer>
               <label htmlFor="">First Name</label>
               <input type="text" placeholder="First Name" />
@@ -43,11 +80,11 @@ const SignUpPage = () => {
             </LastNameContainer>
             <EmailContainer>
               <label>Email</label>
-              <input type="text" placeholder="Email" />
+              <input type="email" placeholder="Email" onChange={onEmailChange} value={email} />
             </EmailContainer>
             <PasswordContainer>
               <label>Password</label>
-              <input type="text" placeholder="Password" />
+              <input type="password" placeholder="Password" onChange={onPasswordChange} value={password} />
             </PasswordContainer>
             <CreateAccountButtonDiv>
               <button>CREARE CONT</button>

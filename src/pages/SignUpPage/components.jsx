@@ -51,7 +51,7 @@ export const SignUpGoogle = styled.button`
   line-height: 40px;
   cursor: pointer;
 `;
-export const SignUpCredentialsContainer = styled.div`
+export const SignUpCredentialsContainer = styled.form`
   width: 100%;
   padding: 24px 24px 24px 64px;
   border-left: 1px solid var(--color-light-gray);
