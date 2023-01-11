@@ -74,10 +74,20 @@ export const ClientPhoneDiv = styled.div`
   gap: 24px;
 `;
 export const ClientDataDiv = styled.div`
-  div {
-    border: 1px solid var(--color-light-gray);
-    border-radius: 8px;
-    width: 400px;
-    height: 200px;
+  border: 1px solid var(--color-light-gray);
+  border-radius: 8px;
+`;
+
+export const OrdersTitleDiv = styled.div`
+  padding: 24px;
+`;
+export const OrderTitle = styled.h3``;
+export const OrderDetailsDiv = styled.div`
+  border: 1px solid black;
+  padding: 0 24px;
+  margin: 0 12px;
+  margin-bottom: 8px;
+  p {
+    padding: 8px 0;
   }
 `;

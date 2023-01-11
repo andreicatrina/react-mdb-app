@@ -15,10 +15,14 @@ import {
   LogOutContainer,
   MenuContainer,
   MenuOptionsDiv,
+  OrderTitle,
+  OrdersTitleDiv,
+  OrderDetailsDiv,
 } from "./components";
 import { useHistory } from "react-router-dom";
 import { getCurrentUser, isUserAuth, signOutUser } from "../../utils/firebase";
 import { BiErrorCircle } from "react-icons/bi";
+import { orderList } from "./orders";
 
 const AccountPage = () => {
   const history = useHistory();
@@ -77,7 +81,21 @@ const AccountPage = () => {
             </ClientPhoneDiv>
           </ClientDetailsDiv>
           <ClientDataDiv>
-            <div></div>
+            <OrdersTitleDiv>
+              <OrderTitle>Comenzile Tale</OrderTitle>
+            </OrdersTitleDiv>
+            {orderList.map((order, i) => {
+              return (
+                <OrderDetailsDiv>
+                  <p>Id-ul Comenzii: {order.shortId} </p>
+                  <p>Data Comenzii: {order.createdAt.toLocaleString()}</p>
+                  <p>Adresa Livrarii: {order.deliveryAddress}</p>
+                  <p>Costul Transportului: {order.deliveryPrice}</p>
+                  <p>Starea Coletului: {order.shippingStatus}</p>
+                  <p>Pretul Total: {order.totalPrice}</p>
+                </OrderDetailsDiv>
+              );
+            })}
           </ClientDataDiv>
         </DataContainer>
       </AccountContainer>
@@ -87,3 +105,14 @@ const AccountPage = () => {
 };
 
 export default AccountPage;
+
+/*const orders = {
+    createdAt: Date.parse(`${getRandomInt(1, 30)} Oct 2022 00:00:00`),
+    deliveryAddress: "str. ABC, nr. 9, Galati",
+    deliveryPrice: 0,
+    paymentStatus: "Efectuata",
+    shippingStatus: "Asteapta ridicare",
+    shortId: `MDB ${i}`,
+    totalPrice: 19.99,
+    userId: "Yag59YrXTUhKv7Numy5qVYe0laG2",
+  }; */
