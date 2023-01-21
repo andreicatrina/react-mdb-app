@@ -25,7 +25,6 @@ import {
   signInUserWithFacebook,
   signInUserWithGoogle,
 } from "../../utils/firebase";
-import { LoginSocialFacebook } from "reactjs-social-login";
 
 const SignInPage = () => {
   const [email, setEmail] = useState("");

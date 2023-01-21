@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -11,6 +10,7 @@ import SignInPage from "./pages/SignInPage/SignInPage";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage/ResetPasswordPage";
 import OrderPage from "./pages/OrderPage/OrderPage";
+import { OrdersPage } from "./pages/OrdersPage/OrdersPage";
 
 function App() {
   return (
@@ -31,8 +31,11 @@ function App() {
         <Route exact path={"/account/orders/:id"}>
           <OrderPage />
         </Route>
-        <Route path={"/account"}>
+        <Route exact path={"/account"}>
           <AccountPage />
+        </Route>
+        <Route exact path={"/account/orders"}>
+          <OrdersPage />
         </Route>
         <Route exact path={"/sign-in"}>
           <SignInPage />

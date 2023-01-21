@@ -55,6 +55,17 @@ export const getOrdersForUser = async () => {
   return orders;
 };
 
+export const getOrderById = async (id) => {
+  const documentReference = doc(db, "orders", id);
+  const data = await getDoc(documentReference);
+
+  return {
+    ...data.data(),
+    id: data.id,
+    createdAt: new Date(data.data().createdAt.seconds)
+  };
+}
+
 export const getProductById = async (id) => {
   const data = await getDoc(doc(db, "products", id));
 

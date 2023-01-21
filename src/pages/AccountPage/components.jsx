@@ -1,47 +1,5 @@
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-export const AccountSection = styled.section`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-`;
-
-export const AccountContainer = styled.div`
-  display: flex;
-  gap: 24px;
-  flex-grow: 1;
-  padding: 24px;
-`;
-export const MenuContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 200px;
-  height: 300px;
-  gap: 100px;
-  border: 1px solid var(--color-light-gray);
-  border-radius: 8px;
-`;
-export const MenuOptionsDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  gap: 16px;
-  padding-top: 24px;
-
-  a {
-    color: var(--color-black);
-  }
-`;
-export const LogOutContainer = styled.div`
-  text-align: center;
-`;
-export const LogOutButton = styled.button`
-  background-color: transparent;
-  color: black;
-  cursor: pointer;
-`;
 export const DataContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -106,18 +64,7 @@ export const ClientDataDiv = styled.div`
   border-radius: 8px;
 `;
 
-export const OrdersTitleDiv = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 24px;
 
-  svg {
-    width: 24px;
-    height: 24px;
-  }
-`;
-export const OrderTitle = styled.h3``;
 export const OrderDetailsDiv = styled.div`
   border: 1px solid black;
   padding: 0 24px;

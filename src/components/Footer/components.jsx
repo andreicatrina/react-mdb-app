@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const FooterSection = styled.section`
   background-color: #f0f0f0;
   padding: 60px 0 40px;
-  margin-top: 90px;
 `;
 export const FooterContainer = styled.div`
   display: flex;
