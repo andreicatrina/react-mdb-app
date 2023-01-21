@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const AccountSection = styled.section`
@@ -62,6 +63,7 @@ export const ClientNameDiv = styled.div`
   max-width: 240px;
   gap: 24px;
 `;
+
 export const ClientEmailDiv = styled.div`
   display: flex;
   width: 100%;
@@ -71,15 +73,49 @@ export const ClientPhoneDiv = styled.div`
   display: flex;
   width: 100%;
   max-width: 240px;
-  gap: 24px;
+  gap: 16px;
 `;
+
+export const EditButtonContainer = styled.div`
+  width: 100%;
+  max-width: 20px;
+  height: 20px;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+`;
+
+export const EditPhoneInput = styled.input`
+  border: 1px solid black;
+`;
+
+export const ClientAddressDiv = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
+`;
+
+export const EditAddressInput = styled.input`
+  border: 1px solid black;
+`;
+
 export const ClientDataDiv = styled.div`
   border: 1px solid var(--color-light-gray);
   border-radius: 8px;
 `;
 
 export const OrdersTitleDiv = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 16px;
   padding: 24px;
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
 `;
 export const OrderTitle = styled.h3``;
 export const OrderDetailsDiv = styled.div`

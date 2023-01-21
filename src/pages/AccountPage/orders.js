@@ -7,8 +7,9 @@ export let orderList = [];
 for (let i = 0; i <= 15; i++) {
   const orders = {
     createdAt: new Date(`${getRandomInt(1, 30)} Oct 2022 00:00:00`),
+    userName: "Andrei",
     deliveryAddress: "str. ABC, nr. 9, Galati",
-    deliveryPrice: 0,
+    deliveryPrice: 19,
     paymentStatus: "Efectuata",
     shippingStatus: "Asteapta ridicare",
     shortId: `MDB ${i}`,
@@ -16,4 +17,5 @@ for (let i = 0; i <= 15; i++) {
     userId: "Yag59YrXTUhKv7Numy5qVYe0laG2",
   };
   orderList.push(orders);
+  console.log(orderList);
 }

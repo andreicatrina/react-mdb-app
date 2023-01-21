@@ -45,6 +45,16 @@ export const getProducts = async () => {
   return products;
 };
 
+export const getOrdersForUser = async () => {
+  let orders = [];
+  const ordersCollection = collection(db, "orders");
+  const data = await getDocs(ordersCollection);
+  data.forEach((doc) => {
+    orders.push({ ...doc.data(), id: doc.id, createdAt: new Date(doc.data().createdAt.seconds) });
+  });
+  return orders;
+};
+
 export const getProductById = async (id) => {
   const data = await getDoc(doc(db, "products", id));
 

@@ -1,33 +1,55 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
 import {
   AccountSection,
   AccountContainer,
-  ClientDataDiv,
   ClientDetailsDiv,
   ClientDetailsTitle,
   ClientEmailDiv,
   ClientNameDiv,
   ClientPhoneDiv,
-  DataContainer,
   LogOutButton,
   LogOutContainer,
   MenuContainer,
-  MenuOptionsDiv,
-  OrderTitle,
-  OrdersTitleDiv,
-  OrderDetailsDiv,
+  DataContainer,
+  EditButtonContainer,
+  EditPhoneInput,
+  ClientAddressDiv,
+  EditAddressInput,
 } from "./components";
-import { useHistory } from "react-router-dom";
+
 import { getCurrentUser, isUserAuth, signOutUser } from "../../utils/firebase";
 import { BiErrorCircle } from "react-icons/bi";
-import { orderList } from "./orders";
+import { HiPencil } from "react-icons/hi";
+
+import OrdersSection from "./OrdersSection";
+import AccountMenu from "./AccountMenu";
 
 const AccountPage = () => {
   const history = useHistory();
   const [user] = useState(getCurrentUser());
   console.log({ user });
+
+  const [editPhoneButton, setEditPhoneButton] = useState(false);
+  const [editAddressButton, setEditAddressButton] = useState(false);
+
+  const onClickEditPhoneButton = function () {
+    if (editPhoneButton === false) {
+      setEditPhoneButton(true);
+    } else {
+      setEditPhoneButton(false);
+    }
+  };
+  const onClickEditAddressButton = function () {
+    if (editAddressButton === false) {
+      setEditAddressButton(true);
+    } else {
+      setEditAddressButton(false);
+    }
+  };
 
   if (!isUserAuth()) {
     history.push("/sign-in");
@@ -49,12 +71,7 @@ const AccountPage = () => {
       <Header />
       <AccountContainer>
         <MenuContainer>
-          <MenuOptionsDiv>
-            <a href="">COMENZI</a>
-            <a href="">ADRESE</a>
-            <a href="">FAVORITE</a>
-            <a href="">REVIEW-URI</a>
-          </MenuOptionsDiv>
+          <AccountMenu />
           <LogOutContainer>
             <LogOutButton onClick={onClickLogOut}>Log Out</LogOutButton>
           </LogOutContainer>
@@ -77,26 +94,28 @@ const AccountPage = () => {
             </ClientEmailDiv>
             <ClientPhoneDiv>
               <p>Telefon:</p>
-              <p>{user.phoneNumber || "-"}</p>
+              {editPhoneButton === true ? (
+                <EditPhoneInput type="text" placeholder="Introdu numarul de telefon"></EditPhoneInput>
+              ) : (
+                <p>{user.phoneNumber || "-"}</p>
+              )}
+              <EditButtonContainer onClick={onClickEditPhoneButton}>
+                <HiPencil />
+              </EditButtonContainer>
             </ClientPhoneDiv>
+            <ClientAddressDiv>
+              <p>Adresa:</p>
+              {editAddressButton === true ? (
+                <EditAddressInput type="text" placeholder="Introdu adresa"></EditAddressInput>
+              ) : (
+                <p>-</p>
+              )}
+              <EditButtonContainer onClick={onClickEditAddressButton}>
+                <HiPencil />
+              </EditButtonContainer>
+            </ClientAddressDiv>
           </ClientDetailsDiv>
-          <ClientDataDiv>
-            <OrdersTitleDiv>
-              <OrderTitle>Comenzile Tale</OrderTitle>
-            </OrdersTitleDiv>
-            {orderList.map((order, i) => {
-              return (
-                <OrderDetailsDiv>
-                  <p>Id-ul Comenzii: {order.shortId} </p>
-                  <p>Data Comenzii: {order.createdAt.toLocaleString()}</p>
-                  <p>Adresa Livrarii: {order.deliveryAddress}</p>
-                  <p>Costul Transportului: {order.deliveryPrice}</p>
-                  <p>Starea Coletului: {order.shippingStatus}</p>
-                  <p>Pretul Total: {order.totalPrice}</p>
-                </OrderDetailsDiv>
-              );
-            })}
-          </ClientDataDiv>
+          <OrdersSection />
         </DataContainer>
       </AccountContainer>
       <Footer />
@@ -105,14 +124,3 @@ const AccountPage = () => {
 };
 
 export default AccountPage;
-
-/*const orders = {
-    createdAt: Date.parse(`${getRandomInt(1, 30)} Oct 2022 00:00:00`),
-    deliveryAddress: "str. ABC, nr. 9, Galati",
-    deliveryPrice: 0,
-    paymentStatus: "Efectuata",
-    shippingStatus: "Asteapta ridicare",
-    shortId: `MDB ${i}`,
-    totalPrice: 19.99,
-    userId: "Yag59YrXTUhKv7Numy5qVYe0laG2",
-  }; */
