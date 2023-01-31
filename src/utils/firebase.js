@@ -45,6 +45,17 @@ export const getProducts = async () => {
   return products;
 };
 
+export const getOrderItems = async (orderId) => {
+  let orderItems = [];
+  const data = await getDocs(collection(db, "orders", orderId, "order-items"));
+  data.forEach((doc) => {
+    orderItems.push({ ...doc.data(), id: doc.id });
+    console.log(doc.data());
+  });
+  console.log(orderItems);
+  return orderItems;
+};
+
 export const getOrdersForUser = async () => {
   let orders = [];
   const ordersCollection = collection(db, "orders");
@@ -62,9 +73,9 @@ export const getOrderById = async (id) => {
   return {
     ...data.data(),
     id: data.id,
-    createdAt: new Date(data.data().createdAt.seconds)
+    createdAt: new Date(data.data().createdAt.seconds),
   };
-}
+};
 
 export const getProductById = async (id) => {
   const data = await getDoc(doc(db, "products", id));

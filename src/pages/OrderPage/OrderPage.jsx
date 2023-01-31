@@ -1,29 +1,33 @@
 import React, { useState } from "react";
 import { AccountPageLayout } from "../../components/AccountPageLayout/AccountPageLayout";
-import { getOrderById } from "../../utils/firebase";
+import { getOrderById, getOrderItems, getOrders, getProducts } from "../../utils/firebase";
 import {
   OrderClientDetails,
   OrderClientInvoice,
   OrderContainer,
   OrderDetails,
+  OrderedProductsDetails,
   OrderSummaryDiv,
   OrderTitleContainer,
 } from "./components";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect } from "react";
 
 const OrderPage = () => {
   const [order, setOrder] = useState(undefined);
   const { id } = useParams();
+  const [orderItems, setOrderItems] = useState([]);
 
   useEffect(() => {
     getOrderFromFirebase();
   }, []);
 
   const getOrderFromFirebase = async function () {
-    const userOrder = await getOrderById(id);
-    console.log(userOrder);
+    const [userOrder, orderItemsData] = await Promise.all([getOrderById(id), getOrderItems(id)]);
     setOrder(userOrder);
+    setOrderItems(orderItemsData);
+    // console.log(orderItemsData);
+    // console.log(orderItems);
   };
 
   return (
@@ -37,8 +41,10 @@ const OrderPage = () => {
           <OrderDetails>
             <OrderSummaryDiv>
               <p>Plasata pe data: {order.createdAt.toLocaleString()}</p>
+
               <p>Total: {order.totalPrice}</p>
             </OrderSummaryDiv>
+
             <OrderClientDetails>
               <p>Pentru: </p>
               <p>Numar de telefon: </p>
@@ -53,8 +59,29 @@ const OrderPage = () => {
           </OrderDetails>
         ) : null}
       </OrderContainer>
+      {orderItems.map((product) => {
+        return (
+          <OrderedProductsDetails>
+            <Link to={`/products/${product.productId}`}>
+              <p>Product Id: {product.productId}</p>
+              <p>Amount: {product.amount}</p>
+              <p>Price: {product.price}</p>
+            </Link>
+          </OrderedProductsDetails>
+        );
+      })}
     </AccountPageLayout>
   );
 };
 
 export default OrderPage;
+
+/*
+  1. Scrie HTML-ul care randeaza orderItems (price, id, amount)
+  2. Creaza o componenta separata "OrderItemComponent" care primeste ca props un obiect orderItem
+     si randeaza detaliile pe ecran.
+  3. Inlocuieste HTML-ul de la Pasul 1 cu componenta creata la Pasul 2
+  4. In interiorul OrderItemComponent, la prima randare, pune in state detaliile produsului
+  5. Create a nice template for OrderItemComponent (productImage, productName, amount, price) + 
+  redirect on click
+*/

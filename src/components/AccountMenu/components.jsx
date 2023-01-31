@@ -11,8 +11,8 @@ export const MenuContainer = styled.div`
   width: 100%;
   max-width: 200px;
   height: 300px;
-  gap: 100px;
-  border: 1px solid var(--color-light-gray);
+  gap: 60px;
+  border: 1px solid var(--color-medium-nude);
   border-radius: 8px;
 `;
 export const MenuOptionsDiv = styled.div`

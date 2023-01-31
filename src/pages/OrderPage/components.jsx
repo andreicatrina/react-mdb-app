@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
-export const OrderContainer = styled.div`
-  
-`;
+export const OrderContainer = styled.div``;
 
 export const OrderTitleContainer = styled.div`
   display: flex;
@@ -28,7 +26,7 @@ export const OrderSummaryDiv = styled.div`
   flex-direction: column;
   justify-content: center;
   padding: 12px;
-  border: 1px solid black;
+  border: 1px solid var(--color-medium-nude);
   border-radius: 8px;
 
   p {
@@ -41,7 +39,7 @@ export const OrderClientDetails = styled.div`
   flex-direction: column;
   justify-content: center;
   padding: 12px;
-  border: 1px solid black;
+  border: 1px solid var(--color-medium-nude);
   border-radius: 8px;
 
   p {
@@ -51,7 +49,7 @@ export const OrderClientDetails = styled.div`
 `;
 export const OrderClientInvoice = styled.div`
   padding: 12px;
-  border: 1px solid black;
+  border: 1px solid var(--color-medium-nude);
   border-radius: 8px;
 
   h3 {
@@ -63,4 +61,12 @@ export const OrderClientInvoice = styled.div`
     padding: 2px;
     margin-bottom: 8px;
   }
+`;
+
+export const OrderedProductsDetails = styled.div`
+  width: 100%;
+  border: 1px solid var(--color-medium-nude);
+  border-radius: 8px;
+  margin-top: 24px;
+  padding: 12px;
 `;

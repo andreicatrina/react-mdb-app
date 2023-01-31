@@ -102,9 +102,11 @@ const ProductPage = () => {
   }, [params.productId]);
 
   async function setProductFromFirebase(id) {
+    // const [product, reviews] = await Promise.all([getProductById(id), getReviewsForProduct(product.id)]);
+
     const product = await getProductById(id);
-    setProduct(product);
     const reviews = await getReviewsForProduct(product.id);
+    setProduct(product);
     setReviews(reviews);
     console.log(reviews);
   }
