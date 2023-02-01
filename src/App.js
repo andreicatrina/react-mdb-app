@@ -9,7 +9,7 @@ import AccountPage from "./pages/AccountPage/AccountPage";
 import SignInPage from "./pages/SignInPage/SignInPage";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage/ResetPasswordPage";
-import OrderPage from "./pages/OrderPage/OrderPage";
+import { OrderPage } from "./pages/OrderPage/OrderPage";
 import { OrdersPage } from "./pages/OrdersPage/OrdersPage";
 
 function App() {

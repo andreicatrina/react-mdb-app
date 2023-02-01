@@ -13,7 +13,7 @@ import {
 import { Link, useParams } from "react-router-dom";
 import { useEffect } from "react";
 
-const OrderPage = () => {
+export const OrderPage = () => {
   const [order, setOrder] = useState(undefined);
   const { id } = useParams();
   const [orderItems, setOrderItems] = useState([]);
@@ -59,6 +59,17 @@ const OrderPage = () => {
           </OrderDetails>
         ) : null}
       </OrderContainer>
+      <OrderItemComponent orderItems={orderItems} />
+    </AccountPageLayout>
+  );
+};
+
+const OrderItemComponent = (props) => {
+  const orderItems = props.orderItems;
+
+  console.log(orderItems);
+  return (
+    <div>
       {orderItems.map((product) => {
         return (
           <OrderedProductsDetails>
@@ -70,11 +81,9 @@ const OrderPage = () => {
           </OrderedProductsDetails>
         );
       })}
-    </AccountPageLayout>
+    </div>
   );
 };
-
-export default OrderPage;
 
 /*
   1. Scrie HTML-ul care randeaza orderItems (price, id, amount)
