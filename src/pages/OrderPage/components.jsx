@@ -63,10 +63,40 @@ export const OrderClientInvoice = styled.div`
   }
 `;
 
-export const OrderedProductsDetails = styled.div`
+export const OrderProductDetailsContainer = styled.div`
+  display: flex;
   width: 100%;
+  margin-top: 16px;
+  padding: 12px;
+  background-color: #fff;
   border: 1px solid var(--color-medium-nude);
   border-radius: 8px;
-  margin-top: 24px;
-  padding: 12px;
+
+  :hover {
+    border: 1px solid var(--color-dark-gray);
+  }
+`;
+
+export const OrderProductImage = styled.img`
+  width: 80px;
+  height: 100px;
+  margin-right: 20px;
+`;
+
+export const OrderProductName = styled.span`
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-black);
+`;
+export const OrderProductPrice = styled.span`
+  display: block;
+  color: var(--color-medium-pink);
+  font-weight: 700;
+`;
+export const OrderProductAmount = styled.span`
+  display: block;
+  margin-bottom: 4px;
+  color: var(--color-dark-gray);
 `;

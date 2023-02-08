@@ -134,7 +134,7 @@ const Header = () => {
             <a onClick={showSearchBar} className={s.searchIcon} href="#">
               <HiSearch />
             </a>
-            <Link className={s.shopBasket} to="/">
+            <Link className={s.shopBasket} to="/shoppingcart">
               <RiShoppingBagLine />
             </Link>
             <Link className={s.accountIcon} to="/account">

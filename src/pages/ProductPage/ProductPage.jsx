@@ -84,9 +84,9 @@ import { Link } from "react-router-dom";
 import { ProductPageReviewForm } from "./ProductPageReviewForm";
 import { getProductById, getReviewsForProduct } from "../../utils/firebase";
 import { useEffect } from "react";
+import { isProductInShoppingCart, removeProductFromCart, saveProductToCart } from "../../utils/shopping-cart";
 
 const ProductPage = () => {
-  const [isClicked, setIsClicked] = useState(false);
   const [count, setCount] = useState(1);
   const [showDescription, setShowDescription] = useState(false);
   const [showTips, setShowTips] = useState(false);
@@ -96,14 +96,15 @@ const ProductPage = () => {
   const [product, setProduct] = useState(undefined);
   const [reviews, setReviews] = useState([]);
   const params = useParams();
+  const [isInShoppingCart, setIsInShoppingCart] = useState(isProductInShoppingCart(params.productId));
 
   useEffect(() => {
     setProductFromFirebase(params.productId);
+    console.log(params.productId);
   }, [params.productId]);
 
   async function setProductFromFirebase(id) {
     // const [product, reviews] = await Promise.all([getProductById(id), getReviewsForProduct(product.id)]);
-
     const product = await getProductById(id);
     const reviews = await getReviewsForProduct(product.id);
     setProduct(product);
@@ -133,21 +134,24 @@ const ProductPage = () => {
     }
   }
 
-  function cartButton() {
-    if (isClicked === false) {
-      setIsClicked(true);
+  function onClickCartButton() {
+    const isInShoppingCart = isProductInShoppingCart(params.productId);
+
+    if (isInShoppingCart) {
+      removeProductFromCart(params.productId);
     } else {
-      setIsClicked(false);
+      saveProductToCart(params.productId);
     }
+    setIsInShoppingCart(isProductInShoppingCart(params.productid));
   }
 
-  function plusFunction() {
-    setCount(count + 1);
-  }
+  // function plusFunction() {
+  //   setCount(count + 1);
+  // }
 
-  function minusFunction() {
-    setCount(count - 1);
-  }
+  // function minusFunction() {
+  //   setCount(count - 1);
+  // }
 
   function openDescription() {
     if (showDescription === false) {
@@ -226,14 +230,14 @@ const ProductPage = () => {
             </SizeDiv>
           </SizeContainer>
           <AddToCartContainer>
-            <QuantityContainer>
+            {/* <QuantityContainer>
               <MinusButton onClick={minusFunction}>-</MinusButton>
               <Quantity>{count}</Quantity>
               <PlusButton onClick={plusFunction}>+</PlusButton>
-            </QuantityContainer>
-            <AddToCartButton onClick={cartButton}>
-              {isClicked === true ? <BsCartCheckFill /> : <GiShoppingCart />}
-              {isClicked === true ? "PRODUS ADAUGAT" : "ADAUGA IN COS"}
+            </QuantityContainer> */}
+            <AddToCartButton onClick={onClickCartButton}>
+              {isInShoppingCart === true ? <BsCartCheckFill /> : <GiShoppingCart />}
+              {isInShoppingCart === true ? "PRODUS ADAUGAT" : "ADAUGA IN COS"}
             </AddToCartButton>
           </AddToCartContainer>
           <InfoParagraph>

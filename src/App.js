@@ -11,6 +11,7 @@ import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage/ResetPasswordPage";
 import { OrderPage } from "./pages/OrderPage/OrderPage";
 import { OrdersPage } from "./pages/OrdersPage/OrdersPage";
+import { ShoppingCartPage } from "./pages/ShoppingCartPage/ShoppingCartPage";
 
 function App() {
   return (
@@ -45,6 +46,9 @@ function App() {
         </Route>
         <Route exact path={"/reset"}>
           <ResetPasswordPage />
+        </Route>
+        <Route exact path={"/shoppingcart"}>
+          <ShoppingCartPage />
         </Route>
       </Switch>
     </Router>

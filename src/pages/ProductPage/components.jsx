@@ -5,7 +5,6 @@ export const ProductPageContainer = styled.div`
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  /* background-color: red; */
   margin-top: 50px;
   margin-bottom: 50px;
   padding: 0 24px;
@@ -23,7 +22,6 @@ export const ProductImageContainer = styled.div`
   align-items: center;
   width: 100%;
   max-width: 700px;
-  /* background-color: yellow; */
 
   @media (max-width: 1100px) {
     /* max-width: 900px; */
@@ -60,7 +58,6 @@ export const ImagesContainer = styled.div`
 export const ProductDetailsContainer = styled.div`
   width: 100%;
   max-width: 700px;
-  /* background-color: green; */
 
   @media (max-width: 1100px) {
     max-width: 100%;
@@ -170,26 +167,26 @@ export const QuantityContainer = styled.div`
   border-radius: 8px;
 `;
 
-export const MinusButton = styled.button`
-  width: 100%;
-  max-width: 30px;
-  font-size: 24px;
-  background-color: transparent;
-  cursor: pointer;
-`;
+// export const MinusButton = styled.button`
+//   width: 100%;
+//   max-width: 30px;
+//   font-size: 24px;
+//   background-color: transparent;
+//   cursor: pointer;
+// `;
 
-export const Quantity = styled.span`
-  font-size: 18px;
-  margin: auto 0;
-`;
+// export const Quantity = styled.span`
+//   font-size: 18px;
+//   margin: auto 0;
+// `;
 
-export const PlusButton = styled.button`
-  width: 100%;
-  max-width: 30px;
-  font-size: 24px;
-  background-color: transparent;
-  cursor: pointer;
-`;
+// export const PlusButton = styled.button`
+//   width: 100%;
+//   max-width: 30px;
+//   font-size: 24px;
+//   background-color: transparent;
+//   cursor: pointer;
+// `;
 
 export const AddToCartButton = styled.button`
   display: flex;
@@ -202,11 +199,20 @@ export const AddToCartButton = styled.button`
   background-color: var(--color-black);
   color: var(--color-white);
   border-radius: 8px;
+  font-size: 14px;
+  line-height: 20px;
   cursor: pointer;
+  transition: 0.6s;
 
   svg {
     width: 20px;
     height: 20px;
+  }
+  :hover {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    font-size: 16px;
   }
 
   @media (max-width: 1100px) {
@@ -628,8 +634,10 @@ export const FilterStarsDropDown = styled.div`
   margin: 0 auto;
   border: 1px solid var(--color-light-gray);
   color: var(--color-medium-pink);
+  background-color: white;
   position: absolute;
   top: 40px;
+  padding-bottom: 4px;
 
   button {
     display: flex;
@@ -657,6 +665,7 @@ export const FilterRatingDiv = styled.div`
   border: 1px solid var(--color-light-gray);
   padding: 0 8px;
   cursor: pointer;
+  margin-bottom: 36px;
 `;
 
 export const CommentContainer = styled.div`

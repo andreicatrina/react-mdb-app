@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { AccountPageLayout } from "../../components/AccountPageLayout/AccountPageLayout";
-import { getOrderById, getOrderItems, getOrders, getProducts } from "../../utils/firebase";
+import { getOrderById, getOrderItems, getOrders, getProductById, getProducts } from "../../utils/firebase";
 import {
   OrderClientDetails,
   OrderClientInvoice,
   OrderContainer,
   OrderDetails,
-  OrderedProductsDetails,
+  OrderProductAmount,
+  OrderProductDetailsContainer,
+  OrderProductImage,
+  OrderProductName,
+  OrderProductPrice,
   OrderSummaryDiv,
   OrderTitleContainer,
 } from "./components";
@@ -17,9 +21,14 @@ export const OrderPage = () => {
   const [order, setOrder] = useState(undefined);
   const { id } = useParams();
   const [orderItems, setOrderItems] = useState([]);
+  const [productDetails, setProductDetails] = useState([]);
 
   useEffect(() => {
     getOrderFromFirebase();
+  }, []);
+
+  useEffect(() => {
+    getProductFromFirebase();
   }, []);
 
   const getOrderFromFirebase = async function () {
@@ -28,6 +37,12 @@ export const OrderPage = () => {
     setOrderItems(orderItemsData);
     // console.log(orderItemsData);
     // console.log(orderItems);
+  };
+
+  const getProductFromFirebase = async function () {
+    const product = await getProducts();
+    setProductDetails(product);
+    console.log(product);
   };
 
   return (
@@ -59,29 +74,41 @@ export const OrderPage = () => {
           </OrderDetails>
         ) : null}
       </OrderContainer>
-      <OrderItemComponent orderItems={orderItems} />
+      {orderItems.map((orderItem) => {
+        return <OrderItemComponent orderItem={orderItem} />;
+      })}
     </AccountPageLayout>
   );
 };
 
 const OrderItemComponent = (props) => {
-  const orderItems = props.orderItems;
+  const [product, setProduct] = useState();
 
-  console.log(orderItems);
+  useEffect(() => {
+    setProductDetails();
+  }, []);
+
+  const setProductDetails = async function () {
+    const productData = await getProductById(props.orderItem.productId);
+    setProduct(productData);
+    console.log(productData);
+  };
+
+  if (product === undefined) {
+    return <OrderProductDetailsContainer>Loading</OrderProductDetailsContainer>;
+  }
+
   return (
-    <div>
-      {orderItems.map((product) => {
-        return (
-          <OrderedProductsDetails>
-            <Link to={`/products/${product.productId}`}>
-              <p>Product Id: {product.productId}</p>
-              <p>Amount: {product.amount}</p>
-              <p>Price: {product.price}</p>
-            </Link>
-          </OrderedProductsDetails>
-        );
-      })}
-    </div>
+    <Link to={`/products/${props.orderItem.productId}`}>
+      <OrderProductDetailsContainer>
+        <OrderProductImage src={product.images[0]} alt="product Image" />
+        <div>
+          <OrderProductName> {product.name}</OrderProductName>
+          <OrderProductAmount>{`${props.orderItem.amount} buc`}</OrderProductAmount>
+          <OrderProductPrice>{`${props.orderItem.price} RON`}</OrderProductPrice>
+        </div>
+      </OrderProductDetailsContainer>
+    </Link>
   );
 };
 

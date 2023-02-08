@@ -254,6 +254,9 @@ export const ButtonContainer = styled.div`
 `;
 
 export const SubscribeButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   max-width: 300px;
   height: 30px;
