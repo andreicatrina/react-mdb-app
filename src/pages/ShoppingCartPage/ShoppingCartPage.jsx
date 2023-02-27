@@ -17,60 +17,56 @@ import {
   ProductDetailsSubtitle,
   ProductDetailsTitle,
   QuantityContainer,
+  ProductContainer,
   ShoppingCartContainer,
-  ShoppingCartParentContainer,
   SpanContainer,
   TextContainer,
   TextSpan,
   TotalPriceContainer,
+  ProductsContainer,
 } from "./components";
 
 import { TbArrowBarRight } from "react-icons/tb";
 import { useParams } from "react-router-dom";
+import { getShoppingCartProductIds } from "../../utils/shopping-cart";
+import { getProductById } from "../../utils/firebase";
+import ProductCard from "./ProductCard";
 
 export const ShoppingCartPage = () => {
-  const [count, setCount] = useState(1);
+  const [products, setProducts] = useState([]);
 
-  const incrementQuantity = function () {
-    setCount(count + 1);
-  };
+  useEffect(() => {
+    getShoppingCartProductsWithId();
+  }, []);
 
-  const decrementQuantity = function () {
-    if (count === 0) {
-      setCount(0);
-    } else {
-      setCount(count - 1);
+  async function getShoppingCartProductsWithId() {
+    try {
+      const localStorageProductIds = getShoppingCartProductIds();
+      const localStorageIdsFiltered = localStorageProductIds.filter((id) => id !== null);
+      const products = await Promise.all(localStorageIdsFiltered.map((id) => getProductById(id)));
+      setProducts(products);
+      // console.log(products);
+    } catch (error) {
+      console.log(error);
     }
-  };
+  }
 
+  ////////////////////////////////////////////////
+
+  console.log(products);
   return (
     <PageLayout>
-      <ShoppingCartParentContainer>
-        <ShoppingCartContainer>
-          <ImageContainer>
-            <img src="" alt="" />
-          </ImageContainer>
-          <ProductDetailsContainer>
-            <ProductDetails>
-              <ProductDetailsTitle>Nume Produs</ProductDetailsTitle>
-              <ProductDetailsSubtitle>Disponibilitate: In stoc</ProductDetailsSubtitle>
-            </ProductDetails>
-            <QuantityContainer>
-              <ButtonsContainer>
-                <DecrementButton onClick={decrementQuantity}>-</DecrementButton>
-                <input type="text" name="" id="" value={count} />
-                <IncrementButton onClick={incrementQuantity}>+</IncrementButton>
-              </ButtonsContainer>
-              <SpanContainer>
-                <span>buc</span>
-              </SpanContainer>
-            </QuantityContainer>
-            <PriceContainer>
-              <h3>34 Lei</h3>
-              <button>Sterge</button>
-            </PriceContainer>
-          </ProductDetailsContainer>
-        </ShoppingCartContainer>
+      <ShoppingCartContainer>
+        {products === [] ? (
+          <div>aaa</div>
+        ) : (
+          <ProductsContainer>
+            {products.map((p) => {
+              return <ProductCard product={p} />;
+            })}
+          </ProductsContainer>
+        )}
+
         <OrderSummaryContainer>
           <TextContainer>
             <h3>Sumar Comanda</h3>
@@ -96,7 +92,7 @@ export const ShoppingCartPage = () => {
             </ContinueLink>
           </TotalPriceContainer>
         </OrderSummaryContainer>
-      </ShoppingCartParentContainer>
+      </ShoppingCartContainer>
     </PageLayout>
   );
 };

@@ -109,7 +109,7 @@ const ProductPage = () => {
     const reviews = await getReviewsForProduct(product.id);
     setProduct(product);
     setReviews(reviews);
-    console.log(reviews);
+    // console.log(reviews);
   }
 
   function filterRating(stars) {
@@ -144,14 +144,6 @@ const ProductPage = () => {
     }
     setIsInShoppingCart(isProductInShoppingCart(params.productid));
   }
-
-  // function plusFunction() {
-  //   setCount(count + 1);
-  // }
-
-  // function minusFunction() {
-  //   setCount(count - 1);
-  // }
 
   function openDescription() {
     if (showDescription === false) {

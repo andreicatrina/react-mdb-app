@@ -1,21 +1,27 @@
 import styled from "styled-components";
 
-export const ShoppingCartParentContainer = styled.div`
+export const ShoppingCartContainer = styled.div`
   display: flex;
-  align-items: center;
   width: 100%;
   gap: 8px;
 `;
 
-export const ShoppingCartContainer = styled.div`
+export const ProductsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin-right: 16px;
+`;
+
+export const ProductContainer = styled.div`
   display: flex;
   align-items: center;
+  padding: 12px 32px 12px 12px;
+  margin-bottom: 16px;
   gap: 30px;
-  width: 70%;
-  max-width: 850px;
+  width: 100%;
   border: 3px solid #d9f1f4;
   border-radius: 8px;
-  padding: 12px;
   transition: 0.5s;
 
   :hover {
@@ -25,10 +31,16 @@ export const ShoppingCartContainer = styled.div`
 `;
 
 export const ImageContainer = styled.div`
+  flex-shrink: 0;
   width: 100%;
   max-width: 70px;
   height: 100px;
   border: 1px solid var(--color-light-gray);
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 export const ProductImage = styled.img`
@@ -45,6 +57,7 @@ export const ProductDetailsContainer = styled.div`
 export const ProductDetails = styled.div`
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
 `;
 
 export const ProductDetailsTitle = styled.h3`
@@ -208,6 +221,7 @@ export const ContinueLink = styled.a`
 
   :hover {
     background-color: #d9f1f4;
+    box-shadow: inset 0 0 10px #ddd;
   }
 `;
 

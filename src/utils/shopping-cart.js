@@ -8,11 +8,13 @@ export function saveProductToCart(productId) {
   } else {
     currentShoppingCartList = [];
   }
+
   //2. Adauga produsele la cart
   currentShoppingCartList = [productId, ...currentShoppingCartList];
 
   //3. Transforma lista in string pentru a putea fi salvata in localStorage
   currentShoppingCartString = JSON.stringify(currentShoppingCartList);
+
   //4. Salveaza stringul in localStorage
   localStorage.setItem("shoppingCart", currentShoppingCartString);
 }
