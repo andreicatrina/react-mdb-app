@@ -2,32 +2,18 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { PageLayout } from "../../components/PageLayout/PageLayout";
 import {
-  ButtonsContainer,
   ContinueButton,
   ContinueLink,
-  DecrementButton,
-  IconSpan,
-  ImageContainer,
-  IncrementButton,
   LineDiv,
   OrderSummaryContainer,
-  PriceContainer,
-  ProductDetails,
-  ProductDetailsContainer,
-  ProductDetailsSubtitle,
-  ProductDetailsTitle,
-  QuantityContainer,
-  ProductContainer,
   ShoppingCartContainer,
-  SpanContainer,
   TextContainer,
-  TextSpan,
   TotalPriceContainer,
   ProductsContainer,
 } from "./components";
 
 import { TbArrowBarRight } from "react-icons/tb";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getShoppingCartProductIds } from "../../utils/shopping-cart";
 import { getProductById } from "../../utils/firebase";
 import ProductCard from "./ProductCard";
@@ -84,12 +70,12 @@ export const ShoppingCartPage = () => {
             <h3>
               Total:<h3>43,99 Lei</h3>
             </h3>
-            <ContinueLink>
+            <Link to="/new-order-details">
               <ContinueButton>
                 Continua
                 <TbArrowBarRight />
               </ContinueButton>
-            </ContinueLink>
+            </Link>
           </TotalPriceContainer>
         </OrderSummaryContainer>
       </ShoppingCartContainer>

@@ -111,13 +111,3 @@ const OrderItemComponent = (props) => {
     </Link>
   );
 };
-
-/*
-  1. Scrie HTML-ul care randeaza orderItems (price, id, amount)
-  2. Creaza o componenta separata "OrderItemComponent" care primeste ca props un obiect orderItem
-     si randeaza detaliile pe ecran.
-  3. Inlocuieste HTML-ul de la Pasul 1 cu componenta creata la Pasul 2
-  4. In interiorul OrderItemComponent, la prima randare, pune in state detaliile produsului
-  5. Create a nice template for OrderItemComponent (productImage, productName, amount, price) + 
-  redirect on click
-*/

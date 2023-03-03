@@ -237,10 +237,14 @@ export const ContinueButton = styled.div`
   line-height: 32px;
   font-weight: 700;
   color: white;
+  background-color: var(--color-medium-pink);
+  border-radius: 8px;
   transition: 0.5s;
 
   :hover {
     color: black;
+    background-color: #d9f1f4;
+    box-shadow: inset 0 0 10px #ddd;
   }
 `;
 

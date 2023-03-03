@@ -12,6 +12,7 @@ import ResetPasswordPage from "./pages/ResetPasswordPage/ResetPasswordPage";
 import { OrderPage } from "./pages/OrderPage/OrderPage";
 import { OrdersPage } from "./pages/OrdersPage/OrdersPage";
 import { ShoppingCartPage } from "./pages/ShoppingCartPage/ShoppingCartPage";
+import NewOrderDetails from "./pages/NewOrderDetails/NewOrderDetails";
 
 function App() {
   return (
@@ -49,6 +50,9 @@ function App() {
         </Route>
         <Route exact path={"/shoppingcart"}>
           <ShoppingCartPage />
+        </Route>
+        <Route exact path={"/new-order-details"}>
+          <NewOrderDetails />
         </Route>
       </Switch>
     </Router>
