@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getDocs, collection, getFirestore, doc, getDoc } from "firebase/firestore";
+import { getDocs, collection, getFirestore, doc, getDoc, query, where, addDoc } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
 import {
   getAuth,
@@ -176,3 +176,30 @@ export const signOutUser = async () => {
   const authService = getAuth();
   signOut(authService);
 };
+
+export const getUserProfileByUserId = async (userId) => {
+  const userProfilesCollection = collection(db, "user-profiles");
+  const q = query(userProfilesCollection, where("userId", "==", userId));
+  const userProfilesResponse = await getDocs(q);
+  const userProfiles = [];
+  userProfilesResponse.forEach((doc) => {
+    userProfiles.push({ ...doc.data(), id: doc.id });
+  });
+
+  if (userProfiles.length > 0) {
+    return userProfiles[0];
+  } else {
+    return undefined
+  }
+}
+
+export const createUserProfile = async (userId) => {
+  const userProfilesCollection = collection(db, "user-profiles");
+  return addDoc(userProfilesCollection, {
+    userId,
+    address: "",
+    city: "",
+    zipCode: "",
+    phoneNumber: ""
+  })
+}

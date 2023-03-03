@@ -1,6 +1,9 @@
 import "./App.css";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { useEffect } from "react";
+import { getAuth } from "firebase/auth";
+
 import Homepage from "./pages/Homepage/Homepage";
 import ProductPage from "./pages/ProductPage/ProductPage";
 import ProductsPage from "./pages/ProductsPage/ProductsPage";
@@ -13,8 +16,27 @@ import { OrderPage } from "./pages/OrderPage/OrderPage";
 import { OrdersPage } from "./pages/OrdersPage/OrdersPage";
 import { ShoppingCartPage } from "./pages/ShoppingCartPage/ShoppingCartPage";
 import NewOrderDetails from "./pages/NewOrderDetails/NewOrderDetails";
+import { createUserProfile, getCurrentUser, getUserProfileByUserId } from "./utils/firebase";
 
 function App() {
+  useEffect(() => {
+    const fbAuthService = getAuth()
+    fbAuthService.onAuthStateChanged(onAuthChange)
+  }, []);
+
+  async function onAuthChange(user) {
+    if (user) {
+      console.log("vezi ca s-a logat un user");
+      const user = getCurrentUser();
+      const userProfile = await getUserProfileByUserId(user.id);
+      if (!userProfile) {
+        await createUserProfile(user.id);
+      }
+    } else {
+      console.log("vezi ca nu exista user logat");
+    }
+  }
+
   return (
     <Router>
       <Switch>
