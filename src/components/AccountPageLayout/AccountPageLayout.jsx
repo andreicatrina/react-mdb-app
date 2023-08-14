@@ -5,16 +5,14 @@ import AccountMenu from "../AccountMenu/AccountMenu";
 import { ChildrenContainer, Container, Content } from "./components";
 
 export const AccountPageLayout = function (props) {
-  return(
+  return (
     <Container>
       <Header />
       <Content>
         <AccountMenu />
-        <ChildrenContainer>
-          {props.children}
-        </ChildrenContainer>
+        <ChildrenContainer>{props.children}</ChildrenContainer>
       </Content>
       <Footer />
     </Container>
-  )
-}
+  );
+};

@@ -189,17 +189,20 @@ export const getUserProfileByUserId = async (userId) => {
   if (userProfiles.length > 0) {
     return userProfiles[0];
   } else {
-    return undefined
+    return undefined;
   }
-}
+};
 
 export const createUserProfile = async (userId) => {
   const userProfilesCollection = collection(db, "user-profiles");
   return addDoc(userProfilesCollection, {
     userId,
+    name: "",
     address: "",
     city: "",
     zipCode: "",
-    phoneNumber: ""
-  })
-}
+    phoneNumber: "",
+  });
+};
+
+export const createOrder = async () => {};

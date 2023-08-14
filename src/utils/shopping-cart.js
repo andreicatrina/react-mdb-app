@@ -47,4 +47,6 @@ export function removeProductFromCart(productId) {
   localStorage.setItem("shoppingCart", shoppingCart);
 }
 
-export function removeAllProductsFromCart() {}
+export function removeAllProductsFromCart() {
+  localStorage.removeItem("shoppingCart");
+}

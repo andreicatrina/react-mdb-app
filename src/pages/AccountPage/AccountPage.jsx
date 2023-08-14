@@ -2,45 +2,59 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import {
+  ClientDetailsButton,
   ClientDetailsDiv,
   ClientDetailsTitle,
   ClientEmailDiv,
-  ClientNameDiv,
-  ClientPhoneDiv,
   DataContainer,
   EditButtonContainer,
-  EditPhoneInput,
-  ClientAddressDiv,
-  EditAddressInput,
+  FormInput,
+  FormInputContainer,
 } from "./components";
 
-import { getCurrentUser, isUserAuth } from "../../utils/firebase";
+import { getCurrentUser, getUserProfileByUserId, isUserAuth } from "../../utils/firebase";
 import { BiErrorCircle } from "react-icons/bi";
 import { HiPencil } from "react-icons/hi";
 
 import { AccountPageLayout } from "../../components/AccountPageLayout/AccountPageLayout";
+import { useEffect } from "react";
 
 const AccountPage = () => {
   const history = useHistory();
-  const [user] = useState(getCurrentUser());
+  const [userProfile, setUserProfile] = useState(undefined);
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userAddress, setUserAddress] = useState("");
 
-  const [editPhoneButton, setEditPhoneButton] = useState(false);
-  const [editAddressButton, setEditAddressButton] = useState(false);
+  useEffect(() => {
+    loadUserProfile();
+  }, []);
 
-  const onClickEditPhoneButton = function () {
-    if (editPhoneButton === false) {
-      setEditPhoneButton(true);
-    } else {
-      setEditPhoneButton(false);
-    }
+  const loadUserProfile = async function () {
+    const user = getCurrentUser();
+    // console.log(user);
+    const userProfile = await getUserProfileByUserId(user.id);
+    setUserProfile(userProfile);
+    setPhoneNumber(userProfile.phoneNumber);
+    setUserEmail(user.email);
+    setUserName(userProfile.name);
+    setUserAddress(userProfile.address);
+    console.log(userProfile);
+    return userProfile;
   };
-  const onClickEditAddressButton = function () {
-    if (editAddressButton === false) {
-      setEditAddressButton(true);
-    } else {
-      setEditAddressButton(false);
-    }
-  };
+
+  function onPhoneNumberChange(e) {
+    setPhoneNumber(e.currentTarget.value);
+  }
+
+  function onUserNameChange(e) {
+    setUserName(e.currentTarget.value);
+  }
+
+  function onAddressChange(e) {
+    setUserAddress(e.currentTarget.value);
+  }
 
   if (!isUserAuth()) {
     history.push("/sign-in");
@@ -48,22 +62,27 @@ const AccountPage = () => {
     history.push("/account");
   }
 
-  if (!user) {
+  if (!userProfile) {
     return null;
   }
 
   return (
     <AccountPageLayout>
-      <DataContainer>
-        <ClientDetailsDiv>
-          <ClientDetailsTitle>Datele Contului</ClientDetailsTitle>
-          <ClientNameDiv>
-            <p>Nume:</p>
-            <p>Andrei</p>
-          </ClientNameDiv>
-          <ClientEmailDiv>
-            <p>Email:</p>
-            <p>{user.email}</p>
+      <ClientDetailsDiv>
+        <ClientDetailsTitle>Datele Contului</ClientDetailsTitle>
+        <FormInputContainer>
+          <p>Nume:</p>
+          <FormInput
+            onChange={onUserNameChange}
+            value={userName}
+            type="text"
+            placeholder="Introduceti numele si prenumele"
+          ></FormInput>
+        </FormInputContainer>
+        <ClientEmailDiv>
+          <p>Email:</p>
+          <FormInput disabled value={userEmail} type="text" placeholder="Introduceti adresa de e-mail"></FormInput>
+          {/* <p>{user.email}</p>
             {!user.emailVerified && (
               <p
                 style={{
@@ -73,43 +92,30 @@ const AccountPage = () => {
                   fontSize: 14,
                 }}
               >
-                <BiErrorCircle
-                  style={{ width: 16, height: 16, marginRight: 4 }}
-                />{" "}
-                Email address not verified
+                <BiErrorCircle style={{ width: 16, height: 16, marginRight: 4 }} /> Email address not verified
               </p>
-            )}
-          </ClientEmailDiv>
-          <ClientPhoneDiv>
-            <p>Telefon:</p>
-            {editPhoneButton === true ? (
-              <EditPhoneInput
-                type="text"
-                placeholder="Introdu numarul de telefon"
-              ></EditPhoneInput>
-            ) : (
-              <p>{user.phoneNumber || "-"}</p>
-            )}
-            <EditButtonContainer onClick={onClickEditPhoneButton}>
-              <HiPencil />
-            </EditButtonContainer>
-          </ClientPhoneDiv>
-          <ClientAddressDiv>
-            <p>Adresa:</p>
-            {editAddressButton === true ? (
-              <EditAddressInput
-                type="text"
-                placeholder="Introdu adresa"
-              ></EditAddressInput>
-            ) : (
-              <p>-</p>
-            )}
-            <EditButtonContainer onClick={onClickEditAddressButton}>
-              <HiPencil />
-            </EditButtonContainer>
-          </ClientAddressDiv>
-        </ClientDetailsDiv>
-      </DataContainer>
+            )} */}
+        </ClientEmailDiv>
+        <FormInputContainer>
+          <p>Telefon:</p>
+          <FormInput
+            onChange={onPhoneNumberChange}
+            value={phoneNumber}
+            type="text"
+            placeholder="Introduceti numarul de telefon"
+          ></FormInput>
+        </FormInputContainer>
+        <FormInputContainer>
+          <p>Adresa:</p>
+          <FormInput
+            onChange={onAddressChange}
+            value={userAddress}
+            type="text"
+            placeholder="Introduceti adresa"
+          ></FormInput>
+        </FormInputContainer>
+        <ClientDetailsButton {...(userProfile.phoneNumber === phoneNumber ? "disabled" : "")}>Save</ClientDetailsButton>
+      </ClientDetailsDiv>
     </AccountPageLayout>
   );
 };

@@ -13,8 +13,9 @@ export const Content = styled.div`
   width: 100%;
   max-width: 1440px;
   flex-grow: 1;
-`
+`;
 
 export const ChildrenContainer = styled.div`
   margin-left: 40px;
-`
+  flex-grow: 1;
+`;
