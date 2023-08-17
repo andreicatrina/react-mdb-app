@@ -12,7 +12,11 @@ import {
   FormInputContainer,
 } from "./components";
 
-import { getCurrentUser, getUserProfileByUserId, isUserAuth } from "../../utils/firebase";
+import {
+  getCurrentUser,
+  getUserProfileByUserId,
+  isUserAuth,
+} from "../../utils/firebase";
 import { BiErrorCircle } from "react-icons/bi";
 import { HiPencil } from "react-icons/hi";
 
@@ -26,6 +30,7 @@ const AccountPage = () => {
   const [userEmail, setUserEmail] = useState("");
   const [userName, setUserName] = useState("");
   const [userAddress, setUserAddress] = useState("");
+  const [userCity, setUserCity] = useState("");
 
   useEffect(() => {
     loadUserProfile();
@@ -40,6 +45,7 @@ const AccountPage = () => {
     setUserEmail(user.email);
     setUserName(userProfile.name);
     setUserAddress(userProfile.address);
+    setUserCity(userProfile.city);
     console.log(userProfile);
     return userProfile;
   };
@@ -54,6 +60,10 @@ const AccountPage = () => {
 
   function onAddressChange(e) {
     setUserAddress(e.currentTarget.value);
+  }
+
+  function onCityChange(e) {
+    setUserCity(e.currentTarget.value);
   }
 
   if (!isUserAuth()) {
@@ -81,7 +91,12 @@ const AccountPage = () => {
         </FormInputContainer>
         <ClientEmailDiv>
           <p>Email:</p>
-          <FormInput disabled value={userEmail} type="text" placeholder="Introduceti adresa de e-mail"></FormInput>
+          <FormInput
+            disabled
+            value={userEmail}
+            type="text"
+            placeholder="Introduceti adresa de e-mail"
+          ></FormInput>
           {/* <p>{user.email}</p>
             {!user.emailVerified && (
               <p
@@ -114,7 +129,20 @@ const AccountPage = () => {
             placeholder="Introduceti adresa"
           ></FormInput>
         </FormInputContainer>
-        <ClientDetailsButton {...(userProfile.phoneNumber === phoneNumber ? "disabled" : "")}>Save</ClientDetailsButton>
+        <FormInputContainer>
+          <p>Oras:</p>
+          <FormInput
+            onChange={onCityChange}
+            value={userCity}
+            type="text"
+            placeholder="Introduceti orasul"
+          ></FormInput>
+        </FormInputContainer>
+        <ClientDetailsButton
+          {...(userProfile.phoneNumber === phoneNumber ? "disabled" : "")}
+        >
+          Save
+        </ClientDetailsButton>
       </ClientDetailsDiv>
     </AccountPageLayout>
   );
