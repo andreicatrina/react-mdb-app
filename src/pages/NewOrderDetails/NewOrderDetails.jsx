@@ -9,7 +9,7 @@ const NewOrderDetails = () => {
   const [userEmail, setUserEmail] = useState(user ? user.email : "");
   const [userName, setUserName] = useState();
   const [userPhone, setUserPhone] = useState();
-  const [userAddress, setUserAddress] = useState();
+  const [deliveryAddress, setDeliveryAddress] = useState();
   const [userCity, setUserCity] = useState();
   const [userZipCode, setUserZipCode] = useState();
   const [userProfile, setUserProfile] = useState(undefined);
@@ -43,7 +43,7 @@ const NewOrderDetails = () => {
     if (userProfileResponse) {
       setUserName(userProfileResponse.name);
       setUserPhone(userProfileResponse.phoneNumber);
-      setUserAddress(userProfileResponse.address);
+      setDeliveryAddress(userProfileResponse.address);
       setUserCity(userProfileResponse.city);
       setUserZipCode(userProfileResponse.zipCode);
     }
@@ -62,7 +62,7 @@ const NewOrderDetails = () => {
   };
 
   const onChangeAddress = function (e) {
-    setUserAddress(e.target.value);
+    setDeliveryAddress(e.target.value);
   };
 
   const onChangeCity = function (e) {
@@ -73,14 +73,15 @@ const NewOrderDetails = () => {
     setUserZipCode(e.target.value);
   };
 
-  const onSubmitOrder = function (event) {
+  const onSubmitOrder = async function (event) {
     event.preventDefault();
 
     if (products === []) {
       return;
     }
 
-    createOrder();
+    // TODO: Add parameters to the function call
+    await createOrder();
   };
 
   return (
@@ -97,7 +98,7 @@ const NewOrderDetails = () => {
           <input type="text" placeholder="Numarul de telefon" value={userPhone} onChange={onChangePhone} />
           <br />
           <label>Adresa de livrare:</label>
-          <input type="text" placeholder="Adresa de livrare" value={userAddress} onChange={onChangeAddress} />
+          <input type="text" placeholder="Adresa de livrare" value={deliveryAddress} onChange={onChangeAddress} />
           <br />
           <label>Oras:</label>
           <input type="text" placeholder="Oras" value={userCity} onChange={onChangeCity} />

@@ -205,4 +205,43 @@ export const createUserProfile = async (userId) => {
   });
 };
 
-export const createOrder = async () => {};
+/** 
+ * userId
+ * orderDetails { 
+ *    userEmail,
+ *    userName,
+ *    userPhone,
+ *    deliveryAddress,
+ *    totalPrice
+ * }
+ * products []{
+ *    amount
+ *    price
+ *    productId
+ * }
+ */
+export const createOrder = async (userId, orderDetails, products) => {
+  const orderCollection = collection(db, "orders")
+  const order = await addDoc(orderCollection, {
+    createdAt: new Date(),
+    deliveryAddress: "test address",
+    deliveryPrice: 10,
+    paymentStatus: "pending",
+    shippingStatus: "in progress",
+    totalPrice: 100,
+    userEmail: "test@email.com",
+    userId: "CGDCGdUjLQMtbBp9uyyd8cHX4gX2",
+    userName: "Name",
+    userPhone: "00000000000",
+  })
+  const orderItemsCollection = collection(db, "orders", order.id, "order-items")
+
+  for (let i = 0; i < 2; i++) {
+    await addDoc(orderItemsCollection, {
+      amount: 1,
+      price: 10,
+      productId: "aJfGpxqfB19xnxMBcX0Q",
+    })
+  }
+};
+
