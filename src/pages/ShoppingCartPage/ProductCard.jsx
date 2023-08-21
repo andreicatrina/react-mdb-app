@@ -36,7 +36,9 @@ const ProductCard = (props) => {
       </ImageContainer>
       <ProductDetails>
         <ProductDetailsTitle>{props.product.name}</ProductDetailsTitle>
-        <ProductDetailsSubtitle>Disponibilitate: In stoc</ProductDetailsSubtitle>
+        <ProductDetailsSubtitle>
+          Disponibilitate: In stoc
+        </ProductDetailsSubtitle>
       </ProductDetails>
       <QuantityContainer>
         <ButtonsContainer>
@@ -49,7 +51,7 @@ const ProductCard = (props) => {
         </SpanContainer>
       </QuantityContainer>
       <PriceContainer>
-        <h3>{props.product.price}</h3>
+        <h3>{`${(props.product.price * count).toFixed(2)} Lei`}</h3>
         <button>Sterge</button>
       </PriceContainer>
     </ProductContainer>
@@ -57,7 +59,6 @@ const ProductCard = (props) => {
 };
 
 export default ProductCard;
-
 
 /*
 1.Modifica colectia user a.i. sa contina urmatoarele fielduri noi : localitate, judet, cod postal 

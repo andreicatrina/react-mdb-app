@@ -28,8 +28,12 @@ export const ShoppingCartPage = () => {
   async function getShoppingCartProductsWithId() {
     try {
       const localStorageProductIds = getShoppingCartProductIds();
-      const localStorageIdsFiltered = localStorageProductIds.filter((id) => id !== null);
-      const products = await Promise.all(localStorageIdsFiltered.map((id) => getProductById(id)));
+      const localStorageIdsFiltered = localStorageProductIds.filter(
+        (id) => id !== null
+      );
+      const products = await Promise.all(
+        localStorageIdsFiltered.map((id) => getProductById(id))
+      );
       setProducts(products);
       // console.log(products);
     } catch (error) {
@@ -40,6 +44,14 @@ export const ShoppingCartPage = () => {
   ////////////////////////////////////////////////
 
   console.log(products);
+
+  let sum = 0;
+  for (let i = 0; i < products.length; i++) {
+    sum = products[i].price + sum;
+
+    console.log(sum);
+  }
+
   return (
     <PageLayout>
       <ShoppingCartContainer>
@@ -57,18 +69,19 @@ export const ShoppingCartPage = () => {
           <TextContainer>
             <h3>Sumar Comanda</h3>
             <span>
-              Cost produse: <span>34 Lei</span>
+              Cost produse: <span>{sum.toFixed(2)}</span>
             </span>
             <span>
-              Cost livrare: <span>9,99 Lei</span>
+              Cost livrare: <span>15 Lei</span>
             </span>
             <LineDiv>
               <div></div>
             </LineDiv>
           </TextContainer>
+
           <TotalPriceContainer>
             <h3>
-              Total:<h3>43,99 Lei</h3>
+              Total:<h3>{`${sum + 15} Lei`}</h3>
             </h3>
             <Link to="/new-order-details">
               <ContinueButton>
