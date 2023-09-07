@@ -136,13 +136,12 @@ const ProductPage = () => {
 
   function onClickCartButton() {
     const isInShoppingCart = isProductInShoppingCart(params.productId);
-
     if (isInShoppingCart) {
       removeProductFromCart(params.productId);
     } else {
       saveProductToCart(params.productId);
     }
-    setIsInShoppingCart(isProductInShoppingCart(params.productid));
+    setIsInShoppingCart(isProductInShoppingCart(params.productId));
   }
 
   function openDescription() {

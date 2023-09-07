@@ -13,22 +13,30 @@ import {
   ProductContainer,
   SpanContainer,
 } from "./components";
+import {
+  decrementShoppingCartProductCount,
+  getShoppingCartProductCount,
+  saveProductToCart,
+} from "../../utils/shopping-cart";
 
 const ProductCard = (props) => {
-  const [count, setCount] = useState(1);
+  const [count, setCount] = useState(getShoppingCartProductCount(props.product.id));
 
   const incrementCount = function () {
-    setCount(count + 1);
+    saveProductToCart(props.product.id);
+    setCount(getShoppingCartProductCount(props.product.id));
+    props.onProductChange();
   };
 
   const decrementCount = function () {
     if (count === 1) {
-      setCount(1);
-    } else {
-      setCount(count - 1);
+      return;
     }
+    decrementShoppingCartProductCount(props.product.id);
+    setCount(getShoppingCartProductCount(props.product.id));
+    props.onProductChange();
   };
-  console.log(props.product);
+
   return (
     <ProductContainer>
       <ImageContainer>
@@ -36,9 +44,7 @@ const ProductCard = (props) => {
       </ImageContainer>
       <ProductDetails>
         <ProductDetailsTitle>{props.product.name}</ProductDetailsTitle>
-        <ProductDetailsSubtitle>
-          Disponibilitate: In stoc
-        </ProductDetailsSubtitle>
+        <ProductDetailsSubtitle>Disponibilitate: In stoc</ProductDetailsSubtitle>
       </ProductDetails>
       <QuantityContainer>
         <ButtonsContainer>

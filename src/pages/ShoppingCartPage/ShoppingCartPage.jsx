@@ -14,42 +14,37 @@ import {
 
 import { TbArrowBarRight } from "react-icons/tb";
 import { Link, useParams } from "react-router-dom";
-import { getShoppingCartProductIds } from "../../utils/shopping-cart";
+import { getShoppingCartProductCount, getShoppingCartProductIds } from "../../utils/shopping-cart";
 import { getProductById } from "../../utils/firebase";
 import ProductCard from "./ProductCard";
 
 export const ShoppingCartPage = () => {
   const [products, setProducts] = useState([]);
+  const [sum, setSum] = useState(0);
 
   useEffect(() => {
     getShoppingCartProductsWithId();
   }, []);
 
   async function getShoppingCartProductsWithId() {
-    try {
-      const localStorageProductIds = getShoppingCartProductIds();
-      const localStorageIdsFiltered = localStorageProductIds.filter(
-        (id) => id !== null
-      );
-      const products = await Promise.all(
-        localStorageIdsFiltered.map((id) => getProductById(id))
-      );
-      setProducts(products);
-      // console.log(products);
-    } catch (error) {
-      console.log(error);
+    const localStorageProductIds = getShoppingCartProductIds();
+    const products = await Promise.all(localStorageProductIds.map((id) => getProductById(id)));
+    setProducts(products);
+    let auxSum = 0;
+    for (let i = 0; i < products.length; i++) {
+      auxSum = products[i].price * getShoppingCartProductCount(products[i].id) + auxSum;
     }
+    setSum(auxSum);
   }
 
-  ////////////////////////////////////////////////
-
-  console.log(products);
-
-  let sum = 0;
-  for (let i = 0; i < products.length; i++) {
-    sum = products[i].price + sum;
-
-    console.log(sum);
+  async function onProductChange() {
+    const localStorageProductIds = getShoppingCartProductIds();
+    const products = await Promise.all(localStorageProductIds.map((id) => getProductById(id)));
+    let auxSum = 0;
+    for (let i = 0; i < products.length; i++) {
+      auxSum = products[i].price * getShoppingCartProductCount(products[i].id) + auxSum;
+    }
+    setSum(auxSum);
   }
 
   return (
@@ -60,7 +55,7 @@ export const ShoppingCartPage = () => {
         ) : (
           <ProductsContainer>
             {products.map((p) => {
-              return <ProductCard product={p} />;
+              return <ProductCard product={p} onProductChange={onProductChange} />;
             })}
           </ProductsContainer>
         )}
@@ -81,7 +76,7 @@ export const ShoppingCartPage = () => {
 
           <TotalPriceContainer>
             <h3>
-              Total:<h3>{`${sum + 15} Lei`}</h3>
+              Total:<h3>{`${(sum + 15).toFixed(2)} Lei`}</h3>
             </h3>
             <Link to="/new-order-details">
               <ContinueButton>
